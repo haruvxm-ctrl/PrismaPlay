@@ -1,0 +1,11 @@
+{
+    "movies": {
+        "moana": {
+            "likes": 158,
+            "dislikes": 19,
+            "voters": {
+                "device_muepmv5e_5iah17i27f": "like"
+            }
+        }
+    }
+}

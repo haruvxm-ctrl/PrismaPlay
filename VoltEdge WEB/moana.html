@@ -1,0 +1,2978 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Moana | Prisma Play</title>
+
+<style>
+
+    /* =========================================================
+       PRISMA PLAY
+       MOANA
+       PROFESSIONAL MOVIE EXPERIENCE
+    ========================================================= */
+
+    :root {
+
+        --bg: #050507;
+        --bg-soft: #09090d;
+        --panel: rgba(15, 15, 21, .78);
+        --panel-strong: rgba(20, 20, 27, .94);
+
+        --purple: #8b4dff;
+        --light-purple: #b47aff;
+        --pink: #ff3cac;
+
+        --text: #ffffff;
+        --muted: #a5a5af;
+        --muted-2: #74747e;
+
+        --line: rgba(255,255,255,.09);
+        --line-hover: rgba(255,255,255,.16);
+
+        --youtube-dark: #27272b;
+        --youtube-hover: #333338;
+
+    }
+
+    * {
+
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        font-family:
+            Inter,
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Arial,
+            sans-serif;
+
+    }
+
+    html {
+
+        width: 100%;
+        min-height: 100%;
+
+        background: var(--bg);
+        color: var(--text);
+
+        scroll-behavior: smooth;
+
+    }
+
+    body {
+
+        width: 100%;
+        min-height: 100vh;
+
+        background:
+            radial-gradient(
+                circle at 50% -10%,
+                rgba(139,77,255,.12),
+                transparent 32%
+            ),
+            var(--bg);
+
+        color: var(--text);
+
+        overflow-x: hidden;
+
+    }
+
+    button,
+    a {
+
+        -webkit-tap-highlight-color: transparent;
+
+    }
+
+    button {
+
+        font-family: inherit;
+
+    }
+
+    /* =========================================================
+       TOPBAR
+    ========================================================= */
+
+    .topbar {
+
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        right: 0;
+
+        height: 74px;
+
+        z-index: 500;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 0 34px;
+
+        background:
+            linear-gradient(
+                180deg,
+                rgba(5,5,7,.92),
+                rgba(5,5,7,.62),
+                transparent
+            );
+
+        transition:
+            background .25s ease,
+            backdrop-filter .25s ease;
+
+    }
+
+    .topbar.scrolled {
+
+        background: rgba(5,5,7,.82);
+
+        backdrop-filter: blur(18px);
+
+    }
+
+    /* =========================================================
+       PRISMA PLAY LOGO
+    ========================================================= */
+
+    .brand {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 11px;
+
+        text-decoration: none;
+
+        color: white;
+
+        user-select: none;
+
+    }
+
+    .brand-mark {
+
+        position: relative;
+
+        width: 36px;
+        height: 36px;
+
+        border-radius: 10px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #aa6aff,
+                #7337ff 55%,
+                #ff3cac
+            );
+
+        box-shadow:
+            0 0 28px rgba(139,77,255,.28);
+
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 5px;
+        height: 22px;
+
+        top: 7px;
+
+        border-radius: 5px;
+
+        background: white;
+
+        transform: skewX(-18deg);
+
+    }
+
+    .brand-mark::before {
+
+        left: 10px;
+
+    }
+
+    .brand-mark::after {
+
+        left: 20px;
+
+        opacity: .6;
+
+    }
+
+    .brand-name {
+
+        font-size: 21px;
+
+        font-weight: 850;
+
+        letter-spacing: -.8px;
+
+    }
+
+    .brand-name span {
+
+        color: #b778ff;
+
+    }
+
+    /* =========================================================
+       BACK BUTTON
+    ========================================================= */
+
+    .back-button {
+
+        height: 40px;
+
+        padding: 0 16px;
+
+        border: 1px solid rgba(255,255,255,.09);
+
+        border-radius: 10px;
+
+        background: rgba(255,255,255,.055);
+
+        color: #e7e7eb;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        font-weight: 650;
+
+        transition:
+            background .2s ease,
+            border-color .2s ease,
+            transform .2s ease;
+
+    }
+
+    .back-button:hover {
+
+        background: rgba(255,255,255,.09);
+
+        border-color: rgba(255,255,255,.15);
+
+        transform: translateY(-1px);
+
+    }
+
+    .back-icon {
+
+        font-size: 17px;
+
+        line-height: 1;
+
+    }
+
+    /* =========================================================
+       PAGE
+    ========================================================= */
+
+    .page {
+
+        width: 100%;
+
+        max-width: 1440px;
+
+        margin: 0 auto;
+
+        padding:
+            105px 42px
+            70px;
+
+    }
+
+    /* =========================================================
+       VIDEO
+    ========================================================= */
+
+    .video-section {
+
+        position: relative;
+
+        width: 100%;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+
+        background: #000;
+
+        box-shadow:
+            0 35px 90px rgba(0,0,0,.55),
+            0 0 80px rgba(94,48,170,.08);
+
+        border: 1px solid rgba(255,255,255,.055);
+
+        isolation: isolate;
+
+    }
+
+    .video-wrapper {
+
+        position: relative;
+
+        width: 100%;
+
+        aspect-ratio: 16 / 9;
+
+        background: #000;
+
+        overflow: hidden;
+
+    }
+
+    video {
+
+        display: block;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+
+        background: #000;
+
+    }
+
+    /* =========================================================
+       VIDEO BRAND
+       SE VE TAMBIÉN EN FULLSCREEN
+    ========================================================= */
+
+    .video-brand {
+
+        position: absolute;
+
+        top: 22px;
+        left: 24px;
+
+        z-index: 30;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        pointer-events: none;
+
+        opacity: 0;
+
+        animation:
+            prismaBrandIn .8s ease forwards,
+            prismaBrandFloat 5s ease-in-out 1s infinite;
+
+        filter:
+            drop-shadow(0 3px 14px rgba(0,0,0,.65));
+
+    }
+
+    .video-brand::before {
+
+        content: "";
+
+        position: absolute;
+
+        inset: -9px -13px;
+
+        border-radius: 13px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0,0,0,.48),
+                rgba(0,0,0,.18),
+                transparent
+            );
+
+        filter: blur(2px);
+
+        z-index: -1;
+
+    }
+
+    .video-brand-mark {
+
+        position: relative;
+
+        width: 31px;
+        height: 31px;
+
+        border-radius: 9px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #aa6aff,
+                #7337ff 55%,
+                #ff3cac
+            );
+
+        box-shadow:
+            0 0 22px rgba(139,77,255,.28);
+
+    }
+
+    .video-brand-mark::before,
+    .video-brand-mark::after {
+
+        content: "";
+
+        position: absolute;
+
+        width: 4px;
+        height: 19px;
+
+        top: 6px;
+
+        border-radius: 4px;
+
+        background: white;
+
+        transform: skewX(-18deg);
+
+    }
+
+    .video-brand-mark::before {
+
+        left: 8px;
+
+    }
+
+    .video-brand-mark::after {
+
+        left: 17px;
+
+        opacity: .6;
+
+    }
+
+    .video-brand-name {
+
+        font-size: 17px;
+
+        font-weight: 850;
+
+        letter-spacing: -.6px;
+
+        color: rgba(255,255,255,.94);
+
+    }
+
+    .video-brand-name span {
+
+        color: #c18aff;
+
+    }
+
+    @keyframes prismaBrandIn {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(-8px);
+
+        }
+
+        to {
+
+            opacity: .96;
+
+            transform: translateY(0);
+
+        }
+
+    }
+
+    @keyframes prismaBrandFloat {
+
+        0%,100% {
+
+            filter:
+                drop-shadow(0 3px 14px rgba(0,0,0,.65));
+
+        }
+
+        50% {
+
+            filter:
+                drop-shadow(
+                    0 3px 19px
+                    rgba(139,77,255,.26)
+                );
+
+        }
+
+    }
+
+    /* =========================================================
+       VIDEO LOADING
+    ========================================================= */
+
+    .video-loading {
+
+        position: absolute;
+
+        inset: 0;
+
+        z-index: 20;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background:
+            radial-gradient(
+                circle,
+                rgba(20,10,35,.34),
+                rgba(0,0,0,.78)
+            );
+
+        pointer-events: none;
+
+        opacity: 1;
+
+        transition: opacity .35s ease;
+
+    }
+
+    .video-loading.hidden {
+
+        opacity: 0;
+
+    }
+
+    .spinner {
+
+        width: 46px;
+        height: 46px;
+
+        border-radius: 50%;
+
+        border:
+            3px solid
+            rgba(255,255,255,.12);
+
+        border-top-color: #a875ff;
+
+        animation: spin .75s linear infinite;
+
+        box-shadow:
+            0 0 25px
+            rgba(139,77,255,.16);
+
+    }
+
+    @keyframes spin {
+
+        to {
+
+            transform: rotate(360deg);
+
+        }
+
+    }
+
+    /* =========================================================
+       FULLSCREEN
+    ========================================================= */
+
+    .video-wrapper:fullscreen {
+
+        width: 100vw;
+        height: 100vh;
+
+        aspect-ratio: auto;
+
+        border-radius: 0;
+
+        background: #000;
+
+    }
+
+    .video-wrapper:-webkit-full-screen {
+
+        width: 100vw;
+        height: 100vh;
+
+        aspect-ratio: auto;
+
+        border-radius: 0;
+
+        background: #000;
+
+    }
+
+    .video-wrapper:fullscreen video,
+    .video-wrapper:-webkit-full-screen video {
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+
+    }
+
+    .video-wrapper:fullscreen .video-brand,
+    .video-wrapper:-webkit-full-screen .video-brand {
+
+        display: flex !important;
+
+        position: absolute;
+
+        top: 28px;
+        left: 32px;
+
+        z-index: 2147483646;
+
+        opacity: .96;
+
+    }
+
+    .video-wrapper:fullscreen .video-brand-mark,
+    .video-wrapper:-webkit-full-screen .video-brand-mark {
+
+        width: 36px;
+        height: 36px;
+
+    }
+
+    .video-wrapper:fullscreen .video-brand-name,
+    .video-wrapper:-webkit-full-screen .video-brand-name {
+
+        font-size: 19px;
+
+    }
+
+    /* =========================================================
+       MOVIE INFO
+    ========================================================= */
+
+    .movie-content {
+
+        padding-top: 32px;
+
+    }
+
+    .movie-title-row {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        gap: 25px;
+
+    }
+
+    .movie-title {
+
+        font-size: clamp(30px, 4vw, 46px);
+
+        line-height: 1;
+
+        letter-spacing: -1.8px;
+
+        font-weight: 850;
+
+    }
+
+    .movie-subtitle {
+
+        margin-top: 12px;
+
+        color: var(--muted);
+
+        font-size: 14px;
+
+        line-height: 1.6;
+
+    }
+
+    .movie-meta {
+
+        display: flex;
+
+        align-items: center;
+
+        flex-wrap: wrap;
+
+        gap: 9px;
+
+        margin-top: 17px;
+
+    }
+
+    .meta-item {
+
+        color: #bdbdc5;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+    }
+
+    .meta-separator {
+
+        width: 3px;
+        height: 3px;
+
+        border-radius: 50%;
+
+        background: #62626b;
+
+    }
+
+    .quality {
+
+        padding: 4px 7px;
+
+        border: 1px solid rgba(255,255,255,.16);
+
+        border-radius: 4px;
+
+        color: #e8e8ec;
+
+        font-size: 9px;
+
+        font-weight: 800;
+
+        letter-spacing: .8px;
+
+    }
+
+    /* =========================================================
+       ACTIONS
+    ========================================================= */
+
+    .actions {
+
+        display: flex;
+
+        align-items: center;
+
+        flex-wrap: wrap;
+
+        gap: 9px;
+
+        margin-top: 25px;
+
+    }
+
+    .action-button {
+
+        height: 45px;
+
+        padding: 0 17px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 9px;
+
+        border-radius: 10px;
+
+        border: 1px solid rgba(255,255,255,.09);
+
+        background: rgba(255,255,255,.055);
+
+        color: #ededf1;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        transition:
+            background .2s ease,
+            border-color .2s ease,
+            transform .2s ease,
+            box-shadow .2s ease;
+
+    }
+
+    .action-button:hover {
+
+        background: rgba(255,255,255,.095);
+
+        border-color:
+            rgba(255,255,255,.16);
+
+        transform: translateY(-1px);
+
+    }
+
+    .play-button {
+
+        border: 0;
+
+        color: white;
+
+        background:
+            linear-gradient(
+                100deg,
+                #7b43ff,
+                #a35cff 52%,
+                #df3caf
+            );
+
+        box-shadow:
+            0 9px 28px
+            rgba(139,77,255,.18);
+
+    }
+
+    .play-button:hover {
+
+        background:
+            linear-gradient(
+                100deg,
+                #8752ff,
+                #ad68ff 52%,
+                #e44ab7
+            );
+
+    }
+
+    .action-icon {
+
+        font-size: 16px;
+
+        line-height: 1;
+
+    }
+
+    /* =========================================================
+       YOUTUBE STYLE LIKE / DISLIKE
+    ========================================================= */
+
+    .vote-group {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        height: 45px;
+
+        overflow: hidden;
+
+        border-radius: 10px;
+
+        background: var(--youtube-dark);
+
+        border: 1px solid rgba(255,255,255,.055);
+
+        box-shadow:
+            inset 0 1px 0
+            rgba(255,255,255,.025);
+
+    }
+
+    .vote-button {
+
+        height: 100%;
+
+        min-width: 74px;
+
+        padding: 0 15px;
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        border: 0;
+
+        background: transparent;
+
+        color: #e7e7ea;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        font-weight: 650;
+
+        transition:
+            background .18s ease,
+            color .18s ease,
+            box-shadow .18s ease;
+
+    }
+
+    .vote-button:hover {
+
+        background: var(--youtube-hover);
+
+    }
+
+    .vote-button:active {
+
+        background: #3c3c41;
+
+    }
+
+    .vote-button.like:hover,
+    .vote-button.dislike:hover {
+
+        color: #ffffff;
+
+    }
+
+    /* =========================================================
+       VOTO ACTIVO
+       SOLO INDICA EL VOTO DEL USUARIO ACTUAL
+    ========================================================= */
+
+    .vote-button.active {
+
+        color: #ffffff;
+
+        background:
+            rgba(139,77,255,.22);
+
+        box-shadow:
+            inset 0 0 0 1px
+            rgba(139,77,255,.42),
+            0 0 16px
+            rgba(139,77,255,.10);
+
+    }
+
+    .vote-button.active .vote-icon {
+
+        stroke-width: 2.25;
+
+        filter:
+            drop-shadow(
+                0 0 5px
+                rgba(180,122,255,.42)
+            );
+
+    }
+
+    .vote-button.like.active {
+
+        color: #c39aff;
+
+    }
+
+    .vote-button.dislike.active {
+
+        color: #ff86c8;
+
+    }
+
+    .vote-divider {
+
+        width: 1px;
+
+        height: 24px;
+
+        background:
+            rgba(255,255,255,.12);
+
+    }
+
+    .vote-icon {
+
+        width: 19px;
+        height: 19px;
+
+        display: block;
+
+        fill: none;
+
+        stroke: currentColor;
+
+        stroke-width: 1.8;
+
+        stroke-linecap: round;
+
+        stroke-linejoin: round;
+
+    }
+
+    .vote-count {
+
+        min-width: 12px;
+
+        color: #dddde2;
+
+        font-variant-numeric:
+            tabular-nums;
+
+    }
+
+    .vote-button.active .vote-count {
+
+        color: currentColor;
+
+    }
+
+    /* =========================================================
+       DESCRIPTION
+    ========================================================= */
+
+    .description {
+
+        max-width: 880px;
+
+        margin-top: 27px;
+
+        color: #b2b2bc;
+
+        font-size: 14px;
+
+        line-height: 1.75;
+
+    }
+
+    /* =========================================================
+       INFO GRID
+    ========================================================= */
+
+    .info-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, minmax(0,1fr));
+
+        gap: 13px;
+
+        margin-top: 32px;
+
+    }
+
+    .info-card {
+
+        min-height: 95px;
+
+        padding: 20px;
+
+        border:
+            1px solid var(--line);
+
+        border-radius: 14px;
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(255,255,255,.045),
+                rgba(255,255,255,.018)
+            );
+
+    }
+
+    .info-label {
+
+        color: #777780;
+
+        font-size: 10px;
+
+        font-weight: 800;
+
+        letter-spacing: 1.2px;
+
+        text-transform: uppercase;
+
+    }
+
+    .info-value {
+
+        margin-top: 9px;
+
+        color: #e9e9ed;
+
+        font-size: 13px;
+
+        font-weight: 650;
+
+        line-height: 1.5;
+
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+
+        margin-top: 75px;
+
+        padding-top: 25px;
+
+        border-top:
+            1px solid rgba(255,255,255,.055);
+
+        color: #55555f;
+
+        text-align: center;
+
+        font-size: 10px;
+
+        letter-spacing: .7px;
+
+    }
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    .toast {
+
+        position: fixed;
+
+        left: 50%;
+
+        bottom: 30px;
+
+        z-index: 2000;
+
+        transform:
+            translate(-50%, 20px);
+
+        opacity: 0;
+
+        pointer-events: none;
+
+        min-width: 220px;
+
+        max-width: calc(100vw - 40px);
+
+        padding: 13px 18px;
+
+        border:
+            1px solid rgba(255,255,255,.10);
+
+        border-radius: 11px;
+
+        background:
+            rgba(20,20,26,.94);
+
+        backdrop-filter: blur(18px);
+
+        box-shadow:
+            0 18px 50px rgba(0,0,0,.45);
+
+        color: #eeeeF2;
+
+        text-align: center;
+
+        font-size: 12px;
+
+        transition:
+            opacity .22s ease,
+            transform .22s ease;
+
+    }
+
+    .toast.show {
+
+        opacity: 1;
+
+        transform:
+            translate(-50%, 0);
+
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+        .page {
+
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+        .info-grid {
+
+            grid-template-columns:
+                repeat(2, minmax(0,1fr));
+
+        }
+
+    }
+
+    @media (max-width: 650px) {
+
+        .topbar {
+
+            height: 64px;
+
+            padding:
+                0 16px;
+
+        }
+
+        .brand-name {
+
+            font-size: 19px;
+
+        }
+
+        .brand-mark {
+
+            width: 32px;
+            height: 32px;
+
+            border-radius: 9px;
+
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+
+            height: 19px;
+
+            top: 6px;
+
+        }
+
+        .brand-mark::before {
+
+            left: 9px;
+
+        }
+
+        .brand-mark::after {
+
+            left: 17px;
+
+        }
+
+        .back-button {
+
+            width: 39px;
+
+            padding: 0;
+
+            justify-content: center;
+
+        }
+
+        .back-text {
+
+            display: none;
+
+        }
+
+        .page {
+
+            padding:
+                74px 0 45px;
+
+        }
+
+        .video-section {
+
+            border-radius: 0;
+
+            border-left: 0;
+            border-right: 0;
+
+            box-shadow:
+                0 20px 55px rgba(0,0,0,.45);
+
+        }
+
+        .video-wrapper {
+
+            aspect-ratio: 16 / 9;
+
+        }
+
+        .video-brand {
+
+            top: 13px;
+            left: 14px;
+
+            gap: 7px;
+
+        }
+
+        .video-brand-mark {
+
+            width: 26px;
+            height: 26px;
+
+            border-radius: 7px;
+
+        }
+
+        .video-brand-mark::before,
+        .video-brand-mark::after {
+
+            height: 16px;
+
+            width: 3px;
+
+            top: 5px;
+
+        }
+
+        .video-brand-mark::before {
+
+            left: 7px;
+
+        }
+
+        .video-brand-mark::after {
+
+            left: 15px;
+
+        }
+
+        .video-brand-name {
+
+            font-size: 14px;
+
+        }
+
+        .movie-content {
+
+            padding:
+                25px 18px 0;
+
+        }
+
+        .movie-title {
+
+            font-size: 31px;
+
+        }
+
+        .movie-subtitle {
+
+            font-size: 13px;
+
+        }
+
+        .actions {
+
+            gap: 8px;
+
+        }
+
+        .action-button {
+
+            height: 43px;
+
+        }
+
+        .play-button {
+
+            width: 100%;
+
+        }
+
+        .vote-group {
+
+            height: 43px;
+
+        }
+
+        .vote-button {
+
+            min-width: 66px;
+
+            padding: 0 12px;
+
+        }
+
+        .description {
+
+            font-size: 13px;
+
+        }
+
+        .info-grid {
+
+            grid-template-columns: 1fr;
+
+            margin-top: 25px;
+
+        }
+
+        footer {
+
+            margin-top: 50px;
+
+        }
+
+    }
+
+    @media (max-width: 390px) {
+
+        .movie-title {
+
+            font-size: 28px;
+
+        }
+
+        .vote-button {
+
+            min-width: 61px;
+
+            padding: 0 10px;
+
+            gap: 6px;
+
+        }
+
+        .vote-icon {
+
+            width: 18px;
+            height: 18px;
+
+        }
+
+        .action-button {
+
+            padding: 0 13px;
+
+        }
+
+    }
+
+    /* =========================================================
+       REDUCED MOTION
+    ========================================================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+
+            scroll-behavior: auto !important;
+
+            animation-duration: .01ms !important;
+
+            animation-iteration-count: 1 !important;
+
+            transition-duration: .01ms !important;
+
+        }
+
+    }
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     TOPBAR
+========================================================= -->
+
+<header class="topbar" id="topbar">
+
+    <a class="brand" href="home.html">
+
+        <span class="brand-mark"></span>
+
+        <span class="brand-name">
+
+            Prisma<span>Play</span>
+
+        </span>
+
+    </a>
+
+    <button
+        class="back-button"
+        id="back-button"
+        type="button"
+    >
+
+        <span class="back-icon">‹</span>
+
+        <span class="back-text">
+            Volver
+        </span>
+
+    </button>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="page">
+
+    <!-- =====================================================
+         VIDEO
+    ===================================================== -->
+
+    <section class="video-section">
+
+        <div
+            class="video-wrapper"
+            id="video-wrapper"
+        >
+
+            <video
+                id="movie-video"
+                controls
+                playsinline
+                preload="metadata"
+                poster=""
+            >
+
+                <source
+                    src="moana.mp4"
+                    type="video/mp4"
+                >
+
+                Tu navegador no soporta reproducción de vídeo.
+
+            </video>
+
+
+            <!-- =================================================
+                 PRISMA PLAY DENTRO DEL VIDEO
+                 TAMBIÉN APARECE EN FULLSCREEN
+            ================================================= -->
+
+            <div
+                class="video-brand"
+                id="video-brand"
+            >
+
+                <span class="video-brand-mark"></span>
+
+                <span class="video-brand-name">
+
+                    Prisma<span>Play</span>
+
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOADING
+            ================================================= -->
+
+            <div
+                class="video-loading"
+                id="video-loading"
+            >
+
+                <div class="spinner"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MOVIE CONTENT
+    ===================================================== -->
+
+    <section class="movie-content">
+
+        <div class="movie-title-row">
+
+            <div>
+
+                <h1 class="movie-title">
+                    Moana: Un mar de aventuras
+                </h1>
+
+                <p class="movie-subtitle">
+                    Una aventura más allá del océano.
+                </p>
+
+                <div class="movie-meta">
+
+                    <span class="meta-item">
+                        2026
+                    </span>
+
+                    <span class="meta-separator"></span>
+
+                    <span class="meta-item">
+                        PG
+                    </span>
+
+                    <span class="meta-separator"></span>
+
+                    <span class="meta-item">
+                        Animación
+                    </span>
+
+                    <span class="meta-separator"></span>
+
+                    <span class="meta-item">
+                        Aventura
+                    </span>
+
+                    <span class="meta-separator"></span>
+
+                    <span class="meta-item">
+                        Fantasía
+                    </span>
+
+                    <span class="quality">
+                        1080p
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ACTIONS
+        ================================================= -->
+
+        <div class="actions">
+
+            <button
+                class="action-button play-button"
+                id="play-button"
+                type="button"
+            >
+
+                <span class="action-icon">
+                    ▶
+                </span>
+
+                <span>
+                    Reproducir
+                </span>
+
+            </button>
+
+
+            <!-- =================================================
+                 YOUTUBE STYLE VOTE GROUP
+            ================================================= -->
+
+            <div
+                class="vote-group"
+                aria-label="Valoración"
+            >
+
+                <button
+                    class="vote-button like"
+                    id="like-button"
+                    type="button"
+                    aria-label="Me gusta"
+                >
+
+                    <svg
+                        class="vote-icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <path d="M7 10v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3Z"></path>
+
+                        <path d="M7 20h9.5a2 2 0 0 0 1.94-1.52l1.25-5A2 2 0 0 0 17.75 11H14l.65-3.24A3 3 0 0 0 11.71 4L7 10v10Z"></path>
+
+                    </svg>
+
+                    <span
+                        class="vote-count"
+                        id="like-count"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+
+                <span
+                    class="vote-divider"
+                    aria-hidden="true"
+                ></span>
+
+
+                <button
+                    class="vote-button dislike"
+                    id="dislike-button"
+                    type="button"
+                    aria-label="No me gusta"
+                >
+
+                    <svg
+                        class="vote-icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+
+                        <path d="M7 14V4H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h3Z"></path>
+
+                        <path d="M7 4h9.5a2 2 0 0 1 1.94 1.52l1.25 5A2 2 0 0 1 17.75 13H14l.65 3.24A3 3 0 0 1 11.71 20L7 14V4Z"></path>
+
+                    </svg>
+
+                    <span
+                        class="vote-count"
+                        id="dislike-count"
+                    >
+                        0
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 SHARE
+            ================================================= -->
+
+            <button
+                class="action-button"
+                id="share-button"
+                type="button"
+            >
+
+                <svg
+                    class="vote-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+
+                    <circle
+                        cx="18"
+                        cy="5"
+                        r="2"
+                    ></circle>
+
+                    <circle
+                        cx="6"
+                        cy="12"
+                        r="2"
+                    ></circle>
+
+                    <circle
+                        cx="18"
+                        cy="19"
+                        r="2"
+                    ></circle>
+
+                    <path d="m8 11 8-5"></path>
+
+                    <path d="m8 13 8 5"></path>
+
+                </svg>
+
+                <span>
+                    Compartir
+                </span>
+
+            </button>
+
+
+            <!-- =================================================
+                 MY LIST
+            ================================================= -->
+
+            <button
+                class="action-button"
+                id="list-button"
+                type="button"
+            >
+
+                <span
+                    class="action-icon"
+                    id="list-icon"
+                >
+                    +
+                </span>
+
+                <span id="list-text">
+                    Mi lista
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             DESCRIPTION
+        ================================================= -->
+
+        <p class="description">
+
+            Moana se embarca en una aventura extraordinaria
+            por el océano para descubrir nuevos horizontes,
+            enfrentarse a desafíos inesperados y encontrar
+            el camino que la conecta con su propia historia.
+
+        </p>
+
+
+        <!-- =================================================
+             INFO
+        ================================================= -->
+
+        <div class="info-grid">
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    Género
+                </div>
+
+                <div class="info-value">
+                    Animación · Aventura · Fantasía
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    Calidad
+                </div>
+
+                <div class="info-value">
+                    Full HD · 1080p
+                </div>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-label">
+                    Plataforma
+                </div>
+
+                <div class="info-value">
+                    Disponible en Prisma Play
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        PRISMA PLAY · TU ENTRETENIMIENTO. TU PERFIL. TU PRISMA.
+
+    </footer>
+
+</main>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+    /* =========================================================
+       PRISMA PLAY
+       MOANA
+       JAVASCRIPT
+    ========================================================= */
+
+    const MOVIE_ID = "moana";
+
+    /*
+        Si moana.html se abre directamente con file://,
+        utiliza localhost:3000.
+
+        Si se abre desde Express, utiliza el mismo servidor.
+    */
+
+    const API_BASE =
+        window.location.protocol === "file:"
+            ? "http://localhost:3000"
+            : "";
+
+
+    /* =========================================================
+       IDENTIDAD DEL DISPOSITIVO
+       
+       Se genera una sola vez y queda guardada en localStorage.
+       
+       El servidor utiliza este ID para saber si este navegador
+       ya votó por esta película.
+    ========================================================= */
+
+    const VOTE_USER_KEY =
+        "prismaPlay_vote_user_id";
+
+    function createUserId() {
+
+        try {
+
+            let existingId =
+                localStorage.getItem(
+                    VOTE_USER_KEY
+                );
+
+            if (existingId) {
+
+                return existingId;
+
+            }
+
+            const randomPart =
+                Math.random()
+                    .toString(36)
+                    .substring(2, 12);
+
+            const timePart =
+                Date.now()
+                    .toString(36);
+
+            const newId =
+                "device_" +
+                timePart +
+                "_" +
+                randomPart;
+
+            localStorage.setItem(
+                VOTE_USER_KEY,
+                newId
+            );
+
+            return newId;
+
+        } catch (error) {
+
+            return (
+                "temporary_" +
+                Date.now()
+            );
+
+        }
+
+    }
+
+    const VOTE_USER_ID =
+        createUserId();
+
+
+    /* =========================================================
+       ELEMENTOS
+    ========================================================= */
+
+    const video =
+        document.getElementById(
+            "movie-video"
+        );
+
+    const videoWrapper =
+        document.getElementById(
+            "video-wrapper"
+        );
+
+    const videoLoading =
+        document.getElementById(
+            "video-loading"
+        );
+
+    const playButton =
+        document.getElementById(
+            "play-button"
+        );
+
+    const likeButton =
+        document.getElementById(
+            "like-button"
+        );
+
+    const dislikeButton =
+        document.getElementById(
+            "dislike-button"
+        );
+
+    const likeCount =
+        document.getElementById(
+            "like-count"
+        );
+
+    const dislikeCount =
+        document.getElementById(
+            "dislike-count"
+        );
+
+    const shareButton =
+        document.getElementById(
+            "share-button"
+        );
+
+    const listButton =
+        document.getElementById(
+            "list-button"
+        );
+
+    const listIcon =
+        document.getElementById(
+            "list-icon"
+        );
+
+    const listText =
+        document.getElementById(
+            "list-text"
+        );
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+    const backButton =
+        document.getElementById(
+            "back-button"
+        );
+
+    const topbar =
+        document.getElementById(
+            "topbar"
+        );
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    let toastTimer = null;
+
+    function showToast(message) {
+
+        toast.textContent =
+            message;
+
+        toast.classList.add(
+            "show"
+        );
+
+        clearTimeout(
+            toastTimer
+        );
+
+        toastTimer =
+            setTimeout(
+                () => {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2300
+            );
+
+    }
+
+
+    /* =========================================================
+       VIDEO LOADING
+    ========================================================= */
+
+    function hideVideoLoading() {
+
+        videoLoading.classList.add(
+            "hidden"
+        );
+
+    }
+
+    function showVideoLoading() {
+
+        videoLoading.classList.remove(
+            "hidden"
+        );
+
+    }
+
+    video.addEventListener(
+        "loadeddata",
+        hideVideoLoading
+    );
+
+    video.addEventListener(
+        "canplay",
+        hideVideoLoading
+    );
+
+    video.addEventListener(
+        "playing",
+        hideVideoLoading
+    );
+
+    video.addEventListener(
+        "waiting",
+        showVideoLoading
+    );
+
+    video.addEventListener(
+        "stalled",
+        showVideoLoading
+    );
+
+
+    /* =========================================================
+       PLAY
+    ========================================================= */
+
+    playButton.addEventListener(
+        "click",
+        async () => {
+
+            try {
+
+                if (video.paused) {
+
+                    await video.play();
+
+                } else {
+
+                    video.pause();
+
+                }
+
+            } catch (error) {
+
+                showToast(
+                    "No se pudo reproducir el vídeo."
+                );
+
+            }
+
+        }
+    );
+
+
+    video.addEventListener(
+        "play",
+        () => {
+
+            playButton.innerHTML =
+                '<span class="action-icon">❚❚</span>' +
+                '<span>Pausar</span>';
+
+        }
+    );
+
+
+    video.addEventListener(
+        "pause",
+        () => {
+
+            playButton.innerHTML =
+                '<span class="action-icon">▶</span>' +
+                '<span>Reproducir</span>';
+
+        }
+    );
+
+
+    /* =========================================================
+       FULLSCREEN
+       EL LOGO ESTÁ DENTRO DEL VIDEO WRAPPER
+    ========================================================= */
+
+    video.addEventListener(
+        "dblclick",
+        () => {
+
+            toggleFullscreen();
+
+        }
+    );
+
+
+    async function toggleFullscreen() {
+
+        try {
+
+            if (!document.fullscreenElement) {
+
+                if (
+                    videoWrapper.requestFullscreen
+                ) {
+
+                    await videoWrapper.requestFullscreen();
+
+                } else if (
+                    videoWrapper.webkitRequestFullscreen
+                ) {
+
+                    videoWrapper.webkitRequestFullscreen();
+
+                }
+
+            } else {
+
+                if (
+                    document.exitFullscreen
+                ) {
+
+                    await document.exitFullscreen();
+
+                } else if (
+                    document.webkitExitFullscreen
+                ) {
+
+                    document.webkitExitFullscreen();
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Fullscreen no disponible:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       FULLSCREEN CHANGE
+    ========================================================= */
+
+    document.addEventListener(
+        "fullscreenchange",
+        () => {
+
+            if (
+                document.fullscreenElement
+            ) {
+
+                showToast(
+                    "Pantalla completa activada"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       ACTUALIZAR ESTADO VISUAL DEL VOTO
+    ========================================================= */
+
+    function updateVoteButtons(
+        userVote
+    ) {
+
+        likeButton.classList.remove(
+            "active"
+        );
+
+        dislikeButton.classList.remove(
+            "active"
+        );
+
+        if (userVote === "like") {
+
+            likeButton.classList.add(
+                "active"
+            );
+
+        }
+
+        if (userVote === "dislike") {
+
+            dislikeButton.classList.add(
+                "active"
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       GLOBAL VOTES
+    ========================================================= */
+
+    async function loadVotes() {
+
+        try {
+
+            const url =
+                API_BASE +
+                "/api/movie/" +
+                MOVIE_ID +
+                "/votes?user=" +
+                encodeURIComponent(
+                    VOTE_USER_ID
+                );
+
+            const response =
+                await fetch(
+                    url,
+                    {
+                        cache: "no-store"
+                    }
+                );
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "No se pudieron cargar los contadores."
+                );
+
+            }
+
+            const data =
+                await response.json();
+
+            likeCount.textContent =
+                formatNumber(
+                    data.likes
+                );
+
+            dislikeCount.textContent =
+                formatNumber(
+                    data.dislikes
+                );
+
+            updateVoteButtons(
+                data.userVote
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Error cargando votos:",
+                error
+            );
+
+            likeCount.textContent =
+                "0";
+
+            dislikeCount.textContent =
+                "0";
+
+            updateVoteButtons(
+                null
+            );
+
+        }
+
+    }
+
+
+    /* =========================================================
+       VOTAR
+    ========================================================= */
+
+    async function addCounter(
+        type,
+        button
+    ) {
+
+        if (
+            type !== "like" &&
+            type !== "dislike"
+        ) {
+
+            return;
+
+        }
+
+        if (
+            button.dataset.loading === "true"
+        ) {
+
+            return;
+
+        }
+
+        button.dataset.loading =
+            "true";
+
+        button.style.pointerEvents =
+            "none";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    API_BASE +
+                    "/api/movie/" +
+                    MOVIE_ID +
+                    "/vote",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            vote: type,
+
+                            user:
+                                VOTE_USER_ID
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "No se pudo actualizar el contador."
+                );
+
+            }
+
+
+            likeCount.textContent =
+                formatNumber(
+                    data.likes
+                );
+
+            dislikeCount.textContent =
+                formatNumber(
+                    data.dislikes
+                );
+
+
+            updateVoteButtons(
+                data.userVote ||
+                data.vote
+            );
+
+
+            /* =============================================
+               MICRO ANIMACIÓN
+            ============================================= */
+
+            button.animate(
+                [
+                    {
+                        transform:
+                            "scale(1)"
+                    },
+
+                    {
+                        transform:
+                            "scale(.93)"
+                    },
+
+                    {
+                        transform:
+                            "scale(1)"
+                    }
+
+                ],
+                {
+
+                    duration: 190,
+
+                    easing: "ease-out"
+
+                }
+            );
+
+
+            if (
+                data.changed === false
+            ) {
+
+                showToast(
+                    type === "like"
+                        ? "Ya tienes el Like activado"
+                        : "Ya tienes el Dislike activado"
+                );
+
+            } else {
+
+                showToast(
+                    type === "like"
+                        ? "Me gusta registrado"
+                        : "No me gusta registrado"
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Error actualizando voto:",
+                error
+            );
+
+            showToast(
+                error.message ||
+                "No se pudo actualizar el contador."
+            );
+
+        } finally {
+
+            button.dataset.loading =
+                "false";
+
+            button.style.pointerEvents =
+                "";
+
+        }
+
+    }
+
+
+    likeButton.addEventListener(
+        "click",
+        () => {
+
+            addCounter(
+                "like",
+                likeButton
+            );
+
+        }
+    );
+
+
+    dislikeButton.addEventListener(
+        "click",
+        () => {
+
+            addCounter(
+                "dislike",
+                dislikeButton
+            );
+
+        }
+    );
+
+
+    /* =========================================================
+       NUMBER FORMAT
+    ========================================================= */
+
+    function formatNumber(number) {
+
+        const value =
+            Number(number) || 0;
+
+        if (value >= 1000000) {
+
+            return (
+                (value / 1000000)
+                    .toFixed(
+                        value >= 10000000
+                            ? 0
+                            : 1
+                    )
+                    .replace(
+                        ".0",
+                        ""
+                    )
+                + " M"
+            );
+
+        }
+
+        if (value >= 1000) {
+
+            return (
+                (value / 1000)
+                    .toFixed(
+                        value >= 10000
+                            ? 0
+                            : 1
+                    )
+                    .replace(
+                        ".0",
+                        ""
+                    )
+                + " K"
+            );
+
+        }
+
+        return value.toLocaleString(
+            "es-ES"
+        );
+
+    }
+
+
+    /* =========================================================
+       SHARE
+    ========================================================= */
+
+    shareButton.addEventListener(
+        "click",
+        async () => {
+
+            const shareData = {
+
+                title:
+                    "Moana | Prisma Play",
+
+                text:
+                    "Mira Moana en Prisma Play.",
+
+                url:
+                    window.location.href
+
+            };
+
+
+            try {
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share(
+                        shareData
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    navigator.clipboard
+                ) {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+                    showToast(
+                        "Enlace copiado"
+                    );
+
+                    return;
+
+                }
+
+
+                showToast(
+                    "No se pudo copiar el enlace."
+                );
+
+
+            } catch (error) {
+
+                if (
+                    error.name !==
+                    "AbortError"
+                ) {
+
+                    showToast(
+                        "No se pudo compartir."
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       MI LISTA
+    ========================================================= */
+
+    const LIST_KEY =
+        "prismaPlay_myList";
+
+
+    function getMyList() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(
+                    LIST_KEY
+                )
+            ) || [];
+
+        } catch {
+
+            return [];
+
+        }
+
+    }
+
+
+    function saveMyList(
+        list
+    ) {
+
+        localStorage.setItem(
+            LIST_KEY,
+            JSON.stringify(list)
+        );
+
+    }
+
+
+    function updateListButton() {
+
+        const list =
+            getMyList();
+
+        const exists =
+            list.includes(
+                MOVIE_ID
+            );
+
+
+        if (exists) {
+
+            listIcon.textContent =
+                "✓";
+
+            listText.textContent =
+                "En mi lista";
+
+        } else {
+
+            listIcon.textContent =
+                "+";
+
+            listText.textContent =
+                "Mi lista";
+
+        }
+
+    }
+
+
+    listButton.addEventListener(
+        "click",
+        () => {
+
+            const list =
+                getMyList();
+
+            const index =
+                list.indexOf(
+                    MOVIE_ID
+                );
+
+
+            if (index === -1) {
+
+                list.push(
+                    MOVIE_ID
+                );
+
+                saveMyList(
+                    list
+                );
+
+                updateListButton();
+
+                showToast(
+                    "Añadido a Mi lista"
+                );
+
+            } else {
+
+                list.splice(
+                    index,
+                    1
+                );
+
+                saveMyList(
+                    list
+                );
+
+                updateListButton();
+
+                showToast(
+                    "Eliminado de Mi lista"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       TOPBAR SCROLL
+    ========================================================= */
+
+    window.addEventListener(
+        "scroll",
+        () => {
+
+            if (
+                window.scrollY > 20
+            ) {
+
+                topbar.classList.add(
+                    "scrolled"
+                );
+
+            } else {
+
+                topbar.classList.remove(
+                    "scrolled"
+                );
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =========================================================
+       BACK
+    ========================================================= */
+
+    backButton.addEventListener(
+        "click",
+        () => {
+
+            if (
+                document.referrer &&
+                document.referrer.startsWith(
+                    window.location.origin
+                )
+            ) {
+
+                window.history.back();
+
+            } else {
+
+                window.location.href =
+                    "home.html";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
+
+    loadVotes();
+
+    updateListButton();
+
+
+    /*
+        Actualiza los contadores cada 15 segundos.
+
+        Así, si otro jugador pulsa Like,
+        los demás usuarios pueden recibir
+        el contador actualizado sin recargar.
+
+        También actualiza el estado visual
+        del voto del usuario actual.
+    */
+
+    setInterval(
+        loadVotes,
+        15000
+    );
+
+</script>
+
+</body>
+
+</html>

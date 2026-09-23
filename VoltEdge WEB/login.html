@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Prisma Play | Iniciar sesión</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.js"></script>
+    <script>
+        emailjs.init("apw1mryuA8qGsKgwF");
+    </script>
+
+    <style>
+        :root {
+            --bg: #050507;
+            --panel: rgba(15, 15, 20, .86);
+            --panel-soft: rgba(255,255,255,.055);
+            --line: rgba(255,255,255,.11);
+            --text: #fff;
+            --muted: #a6a6af;
+            --accent: #9b5cff;
+            --accent-2: #ff3cac;
+            --danger: #ff5f6d;
+            --success: #31d49a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .scene {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 18% 25%, rgba(155,92,255,.28), transparent 31%),
+                radial-gradient(circle at 84% 70%, rgba(255,60,172,.18), transparent 29%),
+                radial-gradient(circle at 55% 10%, rgba(80,130,255,.10), transparent 28%),
+                #050507;
+        }
+
+        .scene::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.30) 52%, rgba(0,0,0,.72)),
+                linear-gradient(0deg, #050507 0%, transparent 45%, rgba(0,0,0,.45) 100%);
+            z-index: 2;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: .5;
+            animation: float 12s ease-in-out infinite alternate;
+        }
+
+        .orb.one {
+            width: 320px;
+            height: 320px;
+            left: -90px;
+            top: 8%;
+            background: #7a35ff;
+        }
+
+        .orb.two {
+            width: 270px;
+            height: 270px;
+            right: -60px;
+            bottom: 5%;
+            background: #d62c9b;
+            animation-delay: -4s;
+        }
+
+        .orb.three {
+            width: 180px;
+            height: 180px;
+            left: 48%;
+            top: -80px;
+            background: #315cff;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            from { transform: translate3d(0,0,0) scale(1); }
+            to { transform: translate3d(35px,-22px,0) scale(1.12); }
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+            opacity: .10;
+            background-image:
+                linear-gradient(rgba(255,255,255,.12) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.12) 1px, transparent 1px);
+            background-size: 70px 70px;
+            transform: perspective(600px) rotateX(55deg) translateY(30%);
+            transform-origin: center bottom;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 27px 48px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .brand-mark {
+            width: 36px;
+            height: 36px;
+            position: relative;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #a866ff, #7437ff 55%, #ff3cac);
+            box-shadow: 0 0 30px rgba(155,92,255,.38);
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 22px;
+            border-radius: 5px;
+            background: #fff;
+            top: 7px;
+            transform: skewX(-18deg);
+        }
+
+        .brand-mark::before { left: 11px; }
+        .brand-mark::after { left: 20px; opacity: .62; }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -.8px;
+        }
+
+        .brand-name span {
+            color: #b778ff;
+        }
+
+        .language {
+            color: #ddd;
+            background: rgba(0,0,0,.36);
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 9px;
+            padding: 9px 13px;
+            font-size: 13px;
+            backdrop-filter: blur(12px);
+        }
+
+        .content {
+            position: relative;
+            z-index: 5;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 110px 24px 50px;
+        }
+
+        .login-card {
+            width: min(440px, 100%);
+            padding: 42px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: linear-gradient(145deg, rgba(20,20,27,.92), rgba(8,8,11,.82));
+            box-shadow: 0 35px 100px rgba(0,0,0,.55), inset 0 1px rgba(255,255,255,.05);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+        }
+
+        .eyebrow {
+            color: #b985ff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            margin-bottom: 13px;
+        }
+
+        h1 {
+            font-size: clamp(31px, 5vw, 42px);
+            line-height: 1.04;
+            letter-spacing: -1.5px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .alert {
+            display: none;
+            padding: 12px 14px;
+            margin-bottom: 17px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .alert-error {
+            display: block;
+            color: #ff9aa3;
+            background: rgba(255,95,109,.08);
+            border: 1px solid rgba(255,95,109,.18);
+        }
+
+        .alert-success {
+            display: block;
+            color: #72e7bd;
+            background: rgba(49,212,154,.08);
+            border: 1px solid rgba(49,212,154,.18);
+        }
+
+        .field {
+            position: relative;
+            margin-bottom: 17px;
+        }
+
+        .field label {
+            display: block;
+            color: #d0d0d6;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0 0 8px 3px;
+        }
+
+        .field input {
+            width: 100%;
+            height: 54px;
+            border-radius: 13px;
+            border: 1px solid rgba(255,255,255,.12);
+            outline: none;
+            background: rgba(255,255,255,.045);
+            color: #fff;
+            padding: 0 15px;
+            font-size: 14px;
+            transition: .2s ease;
+        }
+
+        .field input::placeholder {
+            color: #686871;
+        }
+
+        .field input:focus {
+            border-color: rgba(164,102,255,.8);
+            box-shadow: 0 0 0 3px rgba(155,92,255,.10), 0 0 30px rgba(155,92,255,.08);
+            background: rgba(255,255,255,.065);
+        }
+
+        .password-requirements {
+            display: none;
+            color: #777783;
+            font-size: 11px;
+            margin-top: 7px;
+            padding-left: 3px;
+        }
+
+        .requirements-valid {
+            color: var(--success) !important;
+        }
+
+        .primary {
+            width: 100%;
+            height: 54px;
+            margin-top: 5px;
+            border: 0;
+            border-radius: 13px;
+            color: white;
+            font-size: 14px;
+            font-weight: 750;
+            letter-spacing: .1px;
+            cursor: pointer;
+            background: linear-gradient(100deg, #7b43ff, #a35cff 52%, #df3caf);
+            box-shadow: 0 12px 30px rgba(139,72,255,.25);
+            transition: transform .16s ease, filter .16s ease, opacity .16s ease;
+        }
+
+        .primary:hover {
+            filter: brightness(1.09);
+            transform: translateY(-1px);
+        }
+
+        .primary:active {
+            transform: translateY(1px) scale(.995);
+        }
+
+        .primary:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 23px 0;
+            color: #5d5d67;
+            font-size: 11px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: rgba(255,255,255,.08);
+        }
+
+        .links {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .links p {
+            color: #8f8f99;
+            font-size: 13px;
+        }
+
+        .links a {
+            color: #bd8cff;
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .links a:hover {
+            color: #d4b8ff;
+        }
+
+        .forgot {
+            font-size: 12px !important;
+        }
+
+        .legal {
+            color: #5f5f68;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.5;
+            margin-top: 26px;
+        }
+
+        #recovery-section,
+        #verification-section {
+            display: none;
+        }
+
+        .otp input {
+            text-align: center;
+            font-size: 25px;
+            letter-spacing: 8px;
+            font-weight: 800;
+        }
+
+        .status-line {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 20px;
+            color: #70707b;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #31d49a;
+            box-shadow: 0 0 12px #31d49a;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 650px) {
+            .topbar {
+                padding: 19px 18px;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .brand-mark {
+                width: 31px;
+                height: 31px;
+                border-radius: 9px;
+            }
+
+            .brand-mark::before,
+            .brand-mark::after {
+                height: 19px;
+                top: 6px;
+            }
+
+            .brand-mark::before { left: 9px; }
+            .brand-mark::after { left: 17px; }
+
+            .language {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .content {
+                padding: 92px 14px 25px;
+            }
+
+            .login-card {
+                padding: 30px 22px;
+                border-radius: 19px;
+            }
+
+            h1 {
+                font-size: 31px;
+            }
+        }
+
+        @media (max-height: 700px) and (min-width: 651px) {
+            .content {
+                padding-top: 90px;
+            }
+
+            .login-card {
+                padding: 28px 38px;
+            }
+
+            .subtitle {
+                margin-bottom: 20px;
+            }
+
+            .field {
+                margin-bottom: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scene">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
+        <div class="grid"></div>
+    </div>
+
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="brand-mark"></span>
+            <span class="brand-name">Prisma<span>Play</span></span>
+        </a>
+        <div class="language">ES ▾</div>
+    </header>
+
+    <main class="content">
+        <section class="login-card">
+
+            <div id="auth-section">
+                <div class="eyebrow">PRISMA PLAY · STREAMING</div>
+                <h1 id="form-title">Bienvenido de nuevo.</h1>
+                <p class="subtitle" id="form-subtitle">
+                    Entra a tu universo de entretenimiento.
+                </p>
+
+                <div id="alert-message" class="alert"></div>
+
+                <form id="auth-form">
+                    <div class="field">
+                        <label for="email">Correo electrónico</label>
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="tu@correo.com"
+                            required
+                            autocomplete="email">
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Contraseña</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Tu contraseña"
+                            required
+                            autocomplete="current-password">
+                        <div class="password-requirements" id="pass-req">
+                            ⚠️ Debe contener al menos 6 caracteres.
+                        </div>
+                    </div>
+
+                    <button class="primary" type="submit" id="submit-btn">
+                        Iniciar sesión
+                    </button>
+                </form>
+
+                <div class="divider">ACCESO SEGURO</div>
+
+                <div class="links">
+                    <p id="toggle-text">
+                        ¿Nuevo en Prisma Play?
+                        <a id="switch-link">Crear cuenta</a>
+                    </p>
+
+                    <p class="forgot">
+                        <a id="goto-recovery-link">¿Olvidaste tu contraseña?</a>
+                    </p>
+                </div>
+            </div>
+
+            <div id="recovery-section">
+                <div class="eyebrow">RECUPERACIÓN</div>
+                <h1>Recupera tu acceso.</h1>
+                <p class="subtitle">
+                    Enviaremos un código de seguridad a tu correo registrado.
+                </p>
+
+                <div id="recovery-alert-message" class="alert"></div>
+
+                <form id="recovery-form">
+                    <div class="field">
+                        <label for="recovery-email">Correo electrónico</label>
+                        <input
+                            type="email"
+                            id="recovery-email"
+                            placeholder="tu@correo.com"
+                            required>
+                    </div>
+
+                    <button class="primary" type="submit" id="recovery-submit-btn">
+                        Enviar código
+                    </button>
+                </form>
+
+                <div class="links" style="margin-top:22px;">
+                    <p><a id="back-to-login-from-rec">Volver al inicio de sesión</a></p>
+                </div>
+            </div>
+
+            <div id="verification-section">
+                <div class="eyebrow">VERIFICACIÓN · 2FA</div>
+                <h1 id="verification-title">Confirma tu identidad.</h1>
+                <p class="subtitle" id="verification-subtitle">
+                    Introduce el código de seguridad enviado a tu correo.
+                </p>
+
+                <div id="verif-alert-message" class="alert"></div>
+
+                <form id="verification-form">
+                    <div class="field otp">
+                        <label for="verification-code">Código de seguridad</label>
+                        <input
+                            type="text"
+                            id="verification-code"
+                            placeholder="000000"
+                            maxlength="6"
+                            inputmode="numeric"
+                            autocomplete="one-time-code"
+                            required>
+                    </div>
+
+                    <div id="recovery-new-password-fields" style="display:none;">
+                        <div class="field">
+                            <label for="new-password">Nueva contraseña</label>
+                            <input
+                                type="password"
+                                id="new-password"
+                                placeholder="Crea una nueva contraseña">
+                            <div class="password-requirements" id="new-pass-req" style="display:block;">
+                                ⚠️ Debe contener al menos 6 caracteres.
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="primary" type="submit" id="verif-submit-btn">
+                        Verificar código
+                    </button>
+                </form>
+            </div>
+
+            <div class="status-line">
+                <span class="status-dot"></span>
+                Prisma Play Secure Access
+            </div>
+
+            <p class="legal">
+                Al continuar aceptas los términos de servicio y la política de privacidad de Prisma Play.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        if (localStorage.getItem("sessionActive")) {
+            window.location.href = "index.html";
+        }
+
+        const authSection = document.getElementById("auth-section");
+        const recoverySection = document.getElementById("recovery-section");
+        const verificationSection = document.getElementById("verification-section");
+
+        const authForm = document.getElementById("auth-form");
+        const recoveryForm = document.getElementById("recovery-form");
+        const verificationForm = document.getElementById("verification-form");
+
+        const formTitle = document.getElementById("form-title");
+        const formSubtitle = document.getElementById("form-subtitle");
+        const submitBtn = document.getElementById("submit-btn");
+        const toggleText = document.getElementById("toggle-text");
+        const switchLink = document.getElementById("switch-link");
+        const gotoRecoveryLink = document.getElementById("goto-recovery-link");
+        const backToLoginFromRec = document.getElementById("back-to-login-from-rec");
+
+        const alertMessage = document.getElementById("alert-message");
+        const recoveryAlertMessage = document.getElementById("recovery-alert-message");
+        const verifAlertMessage = document.getElementById("verif-alert-message");
+
+        const passwordInput = document.getElementById("password");
+        const passReq = document.getElementById("pass-req");
+        const newPasswordInput = document.getElementById("new-password");
+        const newPassReq = document.getElementById("new-pass-req");
+        const verificationCodeInput = document.getElementById("verification-code");
+        const recoveryNewPasswordFields = document.getElementById("recovery-new-password-fields");
+
+        let isLoginState = true;
+        let authMode = "login";
+        let codigoGenerado = null;
+        let datosTemporalesUser = {};
+        let correoRecuperacionTemporal = "";
+
+        function showAlert(elem, message, type) {
+            elem.innerText = message;
+            elem.className = `alert alert-${type}`;
+        }
+
+        function resetAuthView() {
+            recoverySection.style.display = "none";
+            verificationSection.style.display = "none";
+            authSection.style.display = "block";
+
+            formTitle.innerText = isLoginState ? "Bienvenido de nuevo." : "Crea tu cuenta.";
+            formSubtitle.innerText = isLoginState
+                ? "Entra a tu universo de entretenimiento."
+                : "Únete a Prisma Play y comienza tu experiencia.";
+
+            submitBtn.innerText = isLoginState ? "Iniciar sesión" : "Crear cuenta";
+            gotoRecoveryLink.style.display = isLoginState ? "inline" : "none";
+
+            toggleText.innerHTML = isLoginState
+                ? '¿Nuevo en Prisma Play? <a id="switch-link">Crear cuenta</a>'
+                : '¿Ya tienes cuenta? <a id="switch-link">Iniciar sesión</a>';
+
+            document.getElementById("switch-link").addEventListener("click", toggleAuth);
+        }
+
+        function toggleAuth() {
+            isLoginState = !isLoginState;
+            authForm.reset();
+            alertMessage.style.display = "none";
+            passReq.style.display = "none";
+            resetAuthView();
+        }
+
+        document.getElementById("switch-link").addEventListener("click", toggleAuth);
+
+        passwordInput.addEventListener("input", () => {
+            if (!isLoginState) {
+                passReq.style.display = "block";
+
+                if (passwordInput.value.length >= 6) {
+                    passReq.classList.add("requirements-valid");
+                    passReq.innerText = "✓ Contraseña válida.";
+                } else {
+                    passReq.classList.remove("requirements-valid");
+                    passReq.innerText = "⚠️ Debe contener al menos 6 caracteres.";
+                }
+            }
+        });
+
+        newPasswordInput.addEventListener("input", () => {
+            if (newPasswordInput.value.length >= 6) {
+                newPassReq.classList.add("requirements-valid");
+                newPassReq.innerText = "✓ Nueva contraseña válida.";
+            } else {
+                newPassReq.classList.remove("requirements-valid");
+                newPassReq.innerText = "⚠️ Debe contener al menos 6 caracteres.";
+            }
+        });
+
+        verificationCodeInput.addEventListener("input", e => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, "");
+        });
+
+        gotoRecoveryLink.addEventListener("click", () => {
+            authSection.style.display = "none";
+            verificationSection.style.display = "none";
+            recoverySection.style.display = "block";
+
+            recoveryForm.reset();
+            recoveryAlertMessage.style.display = "none";
+        });
+
+        backToLoginFromRec.addEventListener("click", () => {
+            resetAuthView();
+        });
+
+        authForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const email = document.getElementById("email").value.trim();
+            const password = passwordInput.value;
+
+            if (!isLoginState) {
+                if (localStorage.getItem(email)) {
+                    showAlert(
+                        alertMessage,
+                        "Este correo ya está registrado. Intenta iniciar sesión.",
+                        "error"
+                    );
+                    return;
+                }
+
+                if (password.length < 6) {
+                    showAlert(
+                        alertMessage,
+                        "La contraseña debe tener un mínimo de 6 caracteres.",
+                        "error"
+                    );
+                    return;
+                }
+
+                submitBtn.innerText = "Preparando verificación...";
+                submitBtn.disabled = true;
+
+                codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
+                datosTemporalesUser = { email, password };
+                authMode = "register";
+
+                emailjs.send(
+                    "service_d97mh8c",
+                    "template_qw3c5z2",
+                    {
+                        to_email: email,
+                        codigo_verificacion: codigoGenerado
+                    }
+                ).then(() => {
+                    formTitle.innerText = "Confirma tu correo.";
+                    formSubtitle.innerText = `Introduce el código enviado a ${email}.`;
+
+                    recoveryNewPasswordFields.style.display = "none";
+                    newPasswordInput.required = false;
+
+                    authSection.style.display = "none";
+                    recoverySection.style.display = "none";
+                    verificationSection.style.display = "block";
+
+                    showAlert(
+                        verifAlertMessage,
+                        "Código de seguridad enviado.",
+                        "success"
+                    );
+                }).catch(error => {
+                    submitBtn.innerText = "Crear cuenta";
+                    submitBtn.disabled = false;
+
+                    showAlert(
+                        alertMessage,
+                        "No pudimos enviar el código. Intenta nuevamente.",
+                        "error"
+                    );
+
+                    console.error(error);
+                });
+
+            } else {
+                const savedPassword = localStorage.getItem(email);
+
+                if (savedPassword && savedPassword === password) {
+                    submitBtn.innerText = "Enviando código...";
+                    submitBtn.disabled = true;
+
+                    codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
+                    datosTemporalesUser = { email, password };
+                    authMode = "login";
+
+                    emailjs.send(
+                        "service_d97mh8c",
+                        "template_qw3c5z2",
+                        {
+                            to_email: email,
+                            codigo_verificacion: codigoGenerado
+                        }
+                    ).then(() => {
+                        formTitle.innerText = "Confirma tu identidad.";
+                        formSubtitle.innerText = `Introduce el código enviado a ${email}.`;
+
+                        recoveryNewPasswordFields.style.display = "none";
+                        newPasswordInput.required = false;
+
+                        authSection.style.display = "none";
+                        recoverySection.style.display = "none";
+                        verificationSection.style.display = "block";
+
+                        showAlert(
+                            verifAlertMessage,
+                            "Código OTP enviado correctamente.",
+                            "success"
+                        );
+                    }).catch(error => {
+                        submitBtn.innerText = "Iniciar sesión";
+                        submitBtn.disabled = false;
+
+                        showAlert(
+                            alertMessage,
+                            "No pudimos enviar el código de verificación.",
+                            "error"
+                        );
+
+                        console.error(error);
+                    });
+                } else {
+                    showAlert(
+                        alertMessage,
+                        "El correo o la contraseña no son correctos.",
+                        "error"
+                    );
+                }
+            }
+        });
+
+        recoveryForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const email = document.getElementById("recovery-email").value.trim();
+
+            if (!localStorage.getItem(email)) {
+                showAlert(
+                    recoveryAlertMessage,
+                    "Este correo no figura en nuestros registros.",
+                    "error"
+                );
+                return;
+            }
+
+            const recoverySubmitBtn = document.getElementById("recovery-submit-btn");
+
+            recoverySubmitBtn.innerText = "Enviando...";
+            recoverySubmitBtn.disabled = true;
+
+            codigoGenerado = Math.floor(100000 + Math.random() * 900000).toString();
+            correoRecuperacionTemporal = email;
+            authMode = "recovery";
+
+            emailjs.send(
+                "service_d97mh8c",
+                "template_qw3c5z2",
+                {
+                    to_email: email,
+                    codigo_verificacion: codigoGenerado
+                }
+            ).then(() => {
+                formTitle.innerText = "Crea una nueva contraseña.";
+                formSubtitle.innerText = `Primero confirma el código enviado a ${email}.`;
+
+                recoveryNewPasswordFields.style.display = "block";
+                newPasswordInput.required = true;
+
+                authSection.style.display = "none";
+                recoverySection.style.display = "none";
+                verificationSection.style.display = "block";
+
+                showAlert(
+                    verifAlertMessage,
+                    "Token de recuperación enviado.",
+                    "success"
+                );
+
+                recoverySubmitBtn.innerText = "Enviar código";
+                recoverySubmitBtn.disabled = false;
+            }).catch(error => {
+                recoverySubmitBtn.innerText = "Enviar código";
+                recoverySubmitBtn.disabled = false;
+
+                showAlert(
+                    recoveryAlertMessage,
+                    "No pudimos enviar el código. Intenta nuevamente.",
+                    "error"
+                );
+
+                console.error(error);
+            });
+        });
+
+        verificationForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const codigoUsuario = verificationCodeInput.value;
+
+            if (codigoUsuario !== codigoGenerado) {
+                showAlert(
+                    verifAlertMessage,
+                    "El código ingresado es incorrecto.",
+                    "error"
+                );
+                return;
+            }
+
+            if (authMode === "login") {
+                localStorage.setItem("sessionActive", datosTemporalesUser.email);
+
+                showAlert(
+                    verifAlertMessage,
+                    "✓ Identidad confirmada. Entrando a Prisma Play...",
+                    "success"
+                );
+
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1200);
+
+            } else if (authMode === "register") {
+                localStorage.setItem(
+                    datosTemporalesUser.email,
+                    datosTemporalesUser.password
+                );
+
+                localStorage.setItem(
+                    "sessionActive",
+                    datosTemporalesUser.email
+                );
+
+                showAlert(
+                    verifAlertMessage,
+                    "✓ Cuenta creada. Bienvenido a Prisma Play.",
+                    "success"
+                );
+
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1200);
+
+            } else if (authMode === "recovery") {
+                const nuevaClave = newPasswordInput.value;
+
+                if (nuevaClave.length < 6) {
+                    showAlert(
+                        verifAlertMessage,
+                        "La nueva contraseña debe tener al menos 6 caracteres.",
+                        "error"
+                    );
+                    return;
+                }
+
+                localStorage.setItem(
+                    correoRecuperacionTemporal,
+                    nuevaClave
+                );
+
+                localStorage.setItem(
+                    "sessionActive",
+                    correoRecuperacionTemporal
+                );
+
+                showAlert(
+                    verifAlertMessage,
+                    "✓ Credenciales actualizadas correctamente.",
+                    "success"
+                );
+
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1300);
+            }
+        });
+    </script>
+</body>
+</html>

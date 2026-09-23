@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisma Play | ¿Quién está viendo?</title>
+
+    <style>
+        :root {
+            --bg: #050507;
+            --text: #ffffff;
+            --muted: #a7a7b0;
+            --purple: #9b5cff;
+            --pink: #ff3cac;
+            --card: rgba(255,255,255,.055);
+            --line: rgba(255,255,255,.11);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 15% 25%, rgba(125,57,255,.24), transparent 31%),
+                radial-gradient(circle at 84% 76%, rgba(255,60,172,.16), transparent 30%),
+                radial-gradient(circle at 55% -10%, rgba(55,91,255,.12), transparent 34%),
+                #050507;
+        }
+
+        .background::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.20) 48%, rgba(0,0,0,.72) 100%),
+                linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.68));
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .48;
+            animation: float 13s ease-in-out infinite alternate;
+        }
+
+        .orb.one {
+            width: 330px;
+            height: 330px;
+            left: -110px;
+            top: 10%;
+            background: #7135ff;
+        }
+
+        .orb.two {
+            width: 280px;
+            height: 280px;
+            right: -80px;
+            bottom: 4%;
+            background: #d72f9d;
+            animation-delay: -4s;
+        }
+
+        .orb.three {
+            width: 190px;
+            height: 190px;
+            left: 52%;
+            top: -100px;
+            background: #315cff;
+            animation-delay: -8s;
+        }
+
+        @keyframes float {
+            from { transform: translate3d(0,0,0) scale(1); }
+            to { transform: translate3d(30px,-25px,0) scale(1.12); }
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .brand-mark {
+            width: 37px;
+            height: 37px;
+            position: relative;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #aa6aff, #7337ff 55%, #ff3cac);
+            box-shadow: 0 0 32px rgba(155,92,255,.35);
+        }
+
+        .brand-mark::before,
+        .brand-mark::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 23px;
+            border-radius: 5px;
+            background: white;
+            top: 7px;
+            transform: skewX(-18deg);
+        }
+
+        .brand-mark::before { left: 11px; }
+        .brand-mark::after { left: 21px; opacity: .6; }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 850;
+            letter-spacing: -.8px;
+        }
+
+        .brand-name span {
+            color: #b778ff;
+        }
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #bcbcc5;
+            font-size: 12px;
+        }
+
+        .account-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #35d79d;
+            box-shadow: 0 0 12px rgba(53,215,157,.8);
+        }
+
+        .page {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 45px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .eyebrow {
+            color: #b984ff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-size: clamp(35px, 5vw, 52px);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 13px;
+        }
+
+        .heading p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .profiles {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 34px;
+            flex-wrap: wrap;
+        }
+
+        .profile-wrap {
+            width: 150px;
+            text-align: center;
+        }
+
+        .profile {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 28px;
+            background: linear-gradient(145deg, #8e52ff, #5423c6 54%, #24124f);
+            box-shadow: 0 25px 55px rgba(0,0,0,.40), 0 0 45px rgba(139,78,255,.13);
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .profile:hover {
+            transform: translateY(-7px);
+            border-color: rgba(194,153,255,.75);
+            box-shadow: 0 30px 65px rgba(0,0,0,.48), 0 0 45px rgba(139,78,255,.28);
+        }
+
+        .profile:focus-visible {
+            outline: 2px solid #c9a6ff;
+            outline-offset: 4px;
+        }
+
+        .profile::before {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            left: 10px;
+            top: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 33%, #e5c6ff 0 15%, transparent 16%),
+                        radial-gradient(circle at 50% 67%, #c596ff 0 31%, transparent 32%);
+            opacity: .78;
+            filter: blur(.2px);
+        }
+
+        .profile::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,.17), transparent 35%, rgba(0,0,0,.18));
+        }
+
+        .profile-letter {
+            position: absolute;
+            z-index: 2;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            font-size: 54px;
+            font-weight: 850;
+            color: white;
+            text-shadow: 0 5px 22px rgba(0,0,0,.25);
+        }
+
+        .profile-name {
+            margin-top: 15px;
+            color: #eeeef2;
+            font-size: 15px;
+            font-weight: 650;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .profile-role {
+            margin-top: 5px;
+            color: #777782;
+            font-size: 11px;
+        }
+
+        .profile-edit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 11px;
+            border: 0;
+            background: transparent;
+            color: #a978ff;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .profile-edit:hover {
+            color: #d0b3ff;
+        }
+
+        .add-wrap {
+            width: 150px;
+            text-align: center;
+        }
+
+        .add-profile {
+            width: 150px;
+            height: 150px;
+            border-radius: 28px;
+            border: 1px dashed rgba(255,255,255,.22);
+            background: rgba(255,255,255,.025);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: #92929d;
+            transition: .2s ease;
+        }
+
+        .add-profile:hover {
+            transform: translateY(-7px);
+            border-color: rgba(185,133,255,.72);
+            color: #c29bff;
+            background: rgba(155,92,255,.055);
+            box-shadow: 0 25px 55px rgba(0,0,0,.35);
+        }
+
+        .plus {
+            font-size: 55px;
+            font-weight: 200;
+            line-height: 1;
+        }
+
+        .add-name {
+            margin-top: 15px;
+            color: #aaaab4;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .add-note {
+            margin-top: 5px;
+            color: #696974;
+            font-size: 11px;
+        }
+
+        .footer-note {
+            position: fixed;
+            bottom: 22px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 5;
+            color: #565660;
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* MODAL */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            place-items: center;
+            padding: 20px;
+            background: rgba(0,0,0,.72);
+            backdrop-filter: blur(12px);
+        }
+
+        .modal-backdrop.show {
+            display: grid;
+            animation: fadeIn .18s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            width: min(420px, 100%);
+            padding: 30px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: linear-gradient(145deg, rgba(24,24,31,.97), rgba(9,9,12,.97));
+            box-shadow: 0 35px 100px rgba(0,0,0,.65);
+            text-align: center;
+            animation: modalIn .22s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: translateY(12px) scale(.97); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 18px;
+            display: grid;
+            place-items: center;
+            border-radius: 17px;
+            background: linear-gradient(135deg, rgba(155,92,255,.25), rgba(255,60,172,.18));
+            border: 1px solid rgba(186,139,255,.22);
+            color: #c29bff;
+            font-size: 25px;
+        }
+
+        .modal h2 {
+            font-size: 23px;
+            margin-bottom: 10px;
+            letter-spacing: -.5px;
+        }
+
+        .modal p {
+            color: #9999a4;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            height: 46px;
+            border-radius: 11px;
+            border: 1px solid rgba(255,255,255,.1);
+            background: rgba(255,255,255,.055);
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .modal-btn.primary {
+            border: 0;
+            background: linear-gradient(100deg, #7b43ff, #a35cff 52%, #df3caf);
+        }
+
+        .modal-btn:hover {
+            filter: brightness(1.08);
+        }
+
+        /* EDIT NAME */
+        .edit-form {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .edit-form.show {
+            display: block;
+        }
+
+        .edit-label {
+            display: block;
+            color: #d2d2d8;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .edit-input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 11px;
+            outline: none;
+            background: rgba(255,255,255,.05);
+            color: white;
+            padding: 0 13px;
+            font-size: 14px;
+        }
+
+        .edit-input:focus {
+            border-color: rgba(164,102,255,.8);
+            box-shadow: 0 0 0 3px rgba(155,92,255,.10);
+        }
+
+        @media (max-width: 650px) {
+            body {
+                overflow-y: auto;
+            }
+
+            .topbar {
+                height: 70px;
+                padding: 0 18px;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .brand-mark {
+                width: 31px;
+                height: 31px;
+                border-radius: 9px;
+            }
+
+            .brand-mark::before,
+            .brand-mark::after {
+                height: 19px;
+                top: 6px;
+            }
+
+            .brand-mark::before { left: 9px; }
+            .brand-mark::after { left: 17px; }
+
+            .account {
+                display: none;
+            }
+
+            .page {
+                padding: 95px 18px 70px;
+            }
+
+            .heading {
+                margin-bottom: 34px;
+            }
+
+            h1 {
+                font-size: 35px;
+            }
+
+            .profiles {
+                gap: 25px 22px;
+            }
+
+            .profile-wrap,
+            .add-wrap,
+            .profile,
+            .add-profile {
+                width: 125px;
+            }
+
+            .profile,
+            .add-profile {
+                height: 125px;
+                border-radius: 24px;
+            }
+
+            .profile::before {
+                width: 110px;
+                height: 110px;
+                left: 7px;
+            }
+
+            .profile-letter {
+                font-size: 45px;
+            }
+
+            .profile-name,
+            .add-name {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .profiles {
+                gap: 22px 14px;
+            }
+
+            .profile-wrap,
+            .add-wrap,
+            .profile,
+            .add-profile {
+                width: 112px;
+            }
+
+            .profile,
+            .add-profile {
+                height: 112px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
+    </div>
+
+    <header class="topbar">
+        <a class="brand" href="#">
+            <span class="brand-mark"></span>
+            <span class="brand-name">Prisma<span>Play</span></span>
+        </a>
+
+        <div class="account">
+            <span class="account-dot"></span>
+            <span>Cuenta conectada</span>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="heading">
+            <div class="eyebrow">PRISMA PLAY</div>
+            <h1>¿Quién está viendo?</h1>
+            <p>Selecciona un perfil para continuar con tu experiencia.</p>
+        </section>
+
+        <section class="profiles">
+            <div class="profile-wrap">
+                <button class="profile" id="main-profile" aria-label="Entrar al perfil">
+                    <span class="profile-letter" id="profile-letter">P</span>
+                </button>
+
+                <div class="profile-name" id="profile-name">Perfil</div>
+                <div class="profile-role">Principal</div>
+
+                <button class="profile-edit" id="edit-profile">
+                    ✎ Modificar nombre
+                </button>
+            </div>
+
+            <div class="add-wrap">
+                <button class="add-profile" id="add-profile" aria-label="Crear nuevo perfil">
+                    <span class="plus">+</span>
+                </button>
+
+                <div class="add-name">Añadir perfil</div>
+                <div class="add-note">Disponible próximamente</div>
+            </div>
+        </section>
+    </main>
+
+    <div class="footer-note">
+        Tu entretenimiento. Tu perfil. Tu Prisma.
+    </div>
+
+    <!-- MODAL GENERAL -->
+    <div class="modal-backdrop" id="modal-backdrop">
+        <div class="modal" role="dialog" aria-modal="true">
+            <div class="modal-icon" id="modal-icon">✦</div>
+            <h2 id="modal-title">Próximamente</h2>
+            <p id="modal-message">
+                Esta función todavía está en desarrollo.
+            </p>
+
+            <div class="edit-form" id="edit-form">
+                <label class="edit-label" for="new-profile-name">
+                    Nombre del perfil
+                </label>
+                <input
+                    class="edit-input"
+                    id="new-profile-name"
+                    maxlength="24"
+                    autocomplete="off"
+                    placeholder="Escribe un nombre">
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn" id="modal-cancel">Cerrar</button>
+                <button class="modal-btn primary" id="modal-action">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mainProfile = document.getElementById("main-profile");
+        const profileName = document.getElementById("profile-name");
+        const profileLetter = document.getElementById("profile-letter");
+
+        const activeUser = localStorage.getItem("sessionActive");
+
+        /*
+         * El login guarda el correo del usuario en sessionActive.
+         * Si todavía no existe un nombre personalizado, usamos la parte
+         * anterior al @ como nombre inicial.
+         */
+        function getDefaultName() {
+            if (!activeUser) return "Perfil";
+            return activeUser.split("@")[0] || "Perfil";
+        }
+
+        function getProfileName() {
+            return localStorage.getItem("prismaProfileName") || getDefaultName();
+        }
+
+        function renderProfile() {
+            const name = getProfileName();
+            profileName.textContent = name;
+            profileLetter.textContent = name.trim().charAt(0).toUpperCase() || "P";
+        }
+
+        renderProfile();
+
+        /*
+         * Modal
+         */
+        const backdrop = document.getElementById("modal-backdrop");
+        const modalIcon = document.getElementById("modal-icon");
+        const modalTitle = document.getElementById("modal-title");
+        const modalMessage = document.getElementById("modal-message");
+        const modalCancel = document.getElementById("modal-cancel");
+        const modalAction = document.getElementById("modal-action");
+
+        const editForm = document.getElementById("edit-form");
+        const newProfileName = document.getElementById("new-profile-name");
+
+        function openModal(type) {
+            backdrop.classList.add("show");
+
+            if (type === "add") {
+                modalIcon.textContent = "+";
+                modalTitle.textContent = "Perfiles próximamente";
+                modalMessage.textContent =
+                    "La creación de perfiles adicionales todavía está en desarrollo. Muy pronto podrás crear perfiles para tu familia, amigos o invitados.";
+                editForm.classList.remove("show");
+                modalCancel.textContent = "Cerrar";
+                modalAction.textContent = "Entendido";
+                modalAction.style.display = "block";
+            }
+
+            if (type === "edit") {
+                modalIcon.textContent = "✎";
+                modalTitle.textContent = "Modificar perfil";
+                modalMessage.textContent =
+                    "Personaliza el nombre que aparecerá en tu experiencia de Prisma Play.";
+                editForm.classList.add("show");
+                newProfileName.value = getProfileName();
+                modalCancel.textContent = "Cancelar";
+                modalAction.textContent = "Guardar";
+                modalAction.style.display = "block";
+
+                setTimeout(() => {
+                    newProfileName.focus();
+                    newProfileName.select();
+                }, 50);
+            }
+        }
+
+        function closeModal() {
+            backdrop.classList.remove("show");
+            editForm.classList.remove("show");
+        }
+
+        document.getElementById("add-profile").addEventListener("click", () => {
+            openModal("add");
+        });
+
+        document.getElementById("edit-profile").addEventListener("click", () => {
+            openModal("edit");
+        });
+
+        modalCancel.addEventListener("click", closeModal);
+
+        modalAction.addEventListener("click", () => {
+            if (editForm.classList.contains("show")) {
+                const newName = newProfileName.value.trim();
+
+                if (!newName) {
+                    newProfileName.focus();
+                    return;
+                }
+
+                localStorage.setItem("prismaProfileName", newName);
+                renderProfile();
+                closeModal();
+                return;
+            }
+
+            closeModal();
+        });
+
+        backdrop.addEventListener("click", e => {
+            if (e.target === backdrop) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") {
+                closeModal();
+            }
+
+            if (e.key === "Enter" && backdrop.classList.contains("show") &&
+                editForm.classList.contains("show") &&
+                document.activeElement === newProfileName) {
+                modalAction.click();
+            }
+        });
+
+        /*
+         * Al seleccionar el perfil entramos al verdadero Home.
+         * Por ahora dejamos Index.html como destino para que puedas
+         * continuar construyendo la plataforma desde ahí.
+         */
+        mainProfile.addEventListener("click", () => {
+            window.location.href = "home.html";
+        });
+    </script>
+</body>
+</html>
