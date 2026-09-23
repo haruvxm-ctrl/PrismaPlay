@@ -1100,6 +1100,18 @@
         }
 
     </style>
+    <script>
+        // Control de navegación de Prisma Play.
+        if (!localStorage.getItem('sessionActive')) {
+            window.location.replace('login.html');
+        }
+        window.addEventListener('pageshow', function () {
+            if (!localStorage.getItem('sessionActive')) {
+                document.documentElement.style.visibility = 'hidden';
+                window.location.replace('login.html');
+            }
+        });
+    </script>
 </head>
 
 <body>
