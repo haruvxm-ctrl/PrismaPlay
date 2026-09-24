@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Prisma Play | Configuración</title><style>
+:root{--bg:#050507;--p:rgba(15,15,22,.78);--l:rgba(255,255,255,.09);--t:#fff;--m:#9999a6;--v:#9b5cff;--pink:#ff3cac}*{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:radial-gradient(circle at 12% 20%,rgba(126,58,255,.18),transparent 30%),radial-gradient(circle at 88% 78%,rgba(255,60,172,.12),transparent 28%),#050507;color:var(--t);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.app{min-height:100vh}.side{position:fixed;inset:0 auto 0 0;width:260px;padding:28px 18px;background:rgba(7,7,11,.75);border-right:1px solid var(--l);backdrop-filter:blur(25px)}.brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none;margin:0 8px 38px;font-size:21px;font-weight:850}.mark{width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,#aa6aff,#7137ff 55%,#ff3cac);box-shadow:0 0 28px #8b4dff55}.brand b{color:#b778ff}.mark{position:relative;display:inline-block;flex:0 0 36px}.mark::before,.mark::after,.mark i{content:"";position:absolute;top:7px;width:5px;height:22px;border-radius:5px;background:#fff;transform:skewX(-18deg)}.mark::before{left:10px}.mark i{left:17px}.mark::after{left:24px;opacity:.7}.navtitle{font-size:10px;letter-spacing:2px;color:#686875;font-weight:800;margin:0 10px 9px;text-transform:uppercase}.nav{display:flex;flex-direction:column;gap:5px;margin-bottom:30px}.nav a{height:45px;border-radius:11px;display:flex;align-items:center;gap:13px;padding:0 12px;color:#bdbdc8;text-decoration:none;font-size:13px}.nav a:hover,.nav a.active{color:#fff;background:linear-gradient(90deg,#8b4dffe8,#6c32e277)}.main{margin-left:260px;padding:48px clamp(20px,5vw,70px) 70px}.wrap{max-width:1050px;margin:auto}.back{color:#999;text-decoration:none;font-size:12px}.title{display:flex;justify-content:space-between;align-items:end;margin:25px 0 30px}.title h1{font-size:clamp(35px,5vw,52px);letter-spacing:-2px}.title p{color:var(--m);font-size:13px;margin-top:9px}.status{color:#8cebc7;background:#35d79d0d;border:1px solid #35d79d28;border-radius:20px;padding:8px 11px;font-size:10px}.card{background:var(--p);border:1px solid var(--l);border-radius:20px;backdrop-filter:blur(22px);margin-bottom:18px;overflow:hidden;box-shadow:0 25px 70px #0004}.head{padding:23px 24px 17px;border-bottom:1px solid #ffffff0f}.head h2{font-size:16px}.head p{color:#777;font-size:11px;margin-top:4px}.body{padding:7px 24px}.row{min-height:70px;display:flex;align-items:center;gap:15px;border-bottom:1px solid #ffffff0e}.row:last-child{border:0}.ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#9b5cff12;border:1px solid #9b5cff20;color:#bd91ff}.info{flex:1;min-width:0}.rt{font-size:13px;font-weight:700}.rd{font-size:10px;color:#777;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.val{font-size:12px;color:#aaa;text-align:right;max-width:280px}.mask{font-family:monospace;letter-spacing:2px}.btn{height:36px;padding:0 13px;border-radius:9px;border:1px solid #ffffff17;background:#ffffff08;color:#eee;cursor:pointer;font-weight:650;font-size:11px}.btn:hover{background:#ffffff12}.purple{border:0;background:linear-gradient(100deg,#7b43ff,#a35cff 55%,#df3caf)}.switch{width:42px;height:23px;border:0;border-radius:20px;background:#30303a;padding:3px;cursor:pointer}.switch span{display:block;width:17px;height:17px;border-radius:50%;background:#aaa;transition:.2s}.switch.on{background:#7945e9}.switch.on span{transform:translateX(19px);background:#fff}.danger{color:#ff7787}.modalbg{position:fixed;inset:0;background:#000b;backdrop-filter:blur(12px);display:none;place-items:center;padding:18px;z-index:50}.modalbg.show{display:grid}.modal{width:min(440px,100%);background:linear-gradient(145deg,#181820fa,#08080cfa);border:1px solid var(--l);border-radius:22px;padding:28px;box-shadow:0 40px 110px #000b}.mi{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:#9b5cff18;border:1px solid #9b5cff33;color:#c29bff;font-size:23px;margin-bottom:17px}.modal h3{font-size:21px}.modal p{color:#91919c;font-size:12px;line-height:1.6;margin:9px 0 20px}.input{width:100%;height:47px;border-radius:11px;border:1px solid #ffffff1c;outline:none;background:#ffffff08;color:#fff;padding:0 13px;font-size:14px}.input:focus{border-color:#9256ff;box-shadow:0 0 0 3px #8b4dff1a}.code{text-align:center;letter-spacing:8px;font-size:22px;font-weight:800}.actions{display:flex;gap:9px;margin-top:16px}.actions .btn{flex:1;height:44px}.alert{display:none;padding:11px;border-radius:10px;font-size:11px;line-height:1.5;margin-top:12px}.alert.show{display:block}.ok{color:#91e8c8;background:#35d79d0f;border:1px solid #35d79d26}.err{color:#ff9baa;background:#ff465f0d;border:1px solid #ff465f26}@media(max-width:760px){.side{position:relative;width:100%;height:auto;padding:17px;border-right:0;border-bottom:1px solid var(--l)}.nav{flex-direction:row;overflow:auto;margin-bottom:0}.nav a{min-width:max-content}.navtitle{display:none}.brand{margin-bottom:18px}.main{margin:0;padding:28px 15px 50px}.title{align-items:flex-start;flex-direction:column}.status{display:none}.body{padding:7px 16px}.row{min-height:76px}.val{max-width:130px}}
+</style><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.js"></script></head><body><div class="app"><aside class="side"><a class="brand" href="home.html"><span class="mark" aria-hidden="true"><i></i></span><span>Prisma<b>Play</b></span></a><div class="navtitle">Cuenta</div><nav class="nav"><a href="home.html">⌂ &nbsp;Inicio</a><a class="active" href="config.html">⚙ &nbsp;Configuración</a></nav><div class="navtitle">Prisma</div><nav class="nav"><a href="#preferences">◈ &nbsp;Preferencias</a><a href="#privacy">◉ &nbsp;Privacidad</a></nav></aside><main class="main"><div class="wrap"><a class="back" href="home.html">← Volver a Prisma Play</a><div class="title"><div><h1>Configuración</h1><p>Controla tu cuenta, seguridad y experiencia.</p></div><span class="status">● Cuenta protegida</span></div><section class="card"><div class="head"><h2>Cuenta y perfil</h2><p>Información asociada a tu cuenta.</p></div><div class="body"><div class="row"><div class="ico">👤</div><div class="info"><div class="rt">Nombre del perfil</div><div class="rd">Nombre que aparece en Prisma Play.</div></div><div class="val" id="pname">Perfil</div><button class="btn" id="edit">Modificar</button></div><div class="row"><div class="ico">✉</div><div class="info"><div class="rt">Correo vinculado</div><div class="rd">Se utiliza para seguridad y recuperación.</div></div><div class="val" id="email">••••••</div><button class="btn" id="verify">Verificar</button></div><div class="row"><div class="ico">🔐</div><div class="info"><div class="rt">Contraseña</div><div class="rd">Protegida y oculta por seguridad.</div></div><div class="val mask" id="pass" style="overflow-wrap:anywhere">••••••••••</div><button class="btn purple" id="show">Mostrar</button></div></div></section><section class="card" id="preferences"><div class="head"><h2>Preferencias de reproducción</h2><p>Personaliza cómo funciona Prisma Play.</p></div><div class="body"><div class="row"><div class="ico">▶</div><div class="info"><div class="rt">Reproducción automática</div><div class="rd">Reproducir automáticamente el siguiente episodio.</div></div><div class="val">Predeterminado</div></div><div class="row"><div class="ico">HD</div><div class="info"><div class="rt">Calidad automática</div><div class="rd">Ajustar calidad según tu conexión.</div></div><div class="val">720P Predeterminado</div></div><div class="row"><div class="ico">文</div><div class="info"><div class="rt">Idioma</div><div class="rd">Idioma predeterminado de la interfaz.</div></div><div class="val">Español Predeterminado</div></div><div class="row"><div class="ico">CC</div><div class="info"><div class="rt">Subtítulos</div><div class="rd">Preferencia predeterminada.</div></div><div class="val">Próximamente</div></div></div></section><section class="card" id="privacy"><div class="head"><h2>Privacidad y seguridad</h2><p>Controles para proteger tu experiencia.</p></div><div class="body"><div class="row"><div class="ico">🛡</div><div class="info"><div class="rt">Verificación de cuenta</div><div class="rd">Usa tu correo para confirmar acciones sensibles.</div></div><div class="val" style="color:#8cebc7">Activada</div></div><div class="row"><div class="ico">◉</div><div class="info"><div class="rt">Sesiones activas</div><div class="rd">Administra tus dispositivos conectados.</div></div><button class="btn">Administrar</button></div><div class="row"><div class="ico">↪</div><div class="info"><div class="rt danger">Cerrar sesión</div><div class="rd">Salir de esta cuenta en este dispositivo.</div></div><button class="btn" id="logout">Cerrar sesión</button></div></div></section></div></main></div><div class="modalbg" id="mb"><div class="modal"><div class="mi" id="mi">🔐</div><h3 id="mt">Verificación</h3><p id="mx">Para continuar necesitamos confirmar que eres el propietario.</p><div id="mc"></div><div class="alert" id="al"></div><div class="actions"><button class="btn" id="cancel">Cancelar</button><button class="btn purple" id="action">Continuar</button></div></div></div><script>
+// EmailJS: misma clave pública, servicio y plantilla que login.html.
+const EMAILJS_PUBLIC_KEY='apw1mryuA8qGsKgwF';
+const EMAILJS_SERVICE='service_d97mh8c';
+const EMAILJS_TEMPLATE='template_qw3c5z2';
+const $=id=>document.getElementById(id);
+const email=localStorage.getItem('sessionActive')||'';
+const profileKey=email?'prismaProfileName:'+email:'prismaProfileName';
+const defaultName=localStorage.getItem(profileKey)||localStorage.getItem('prismaProfileName')||(email?email.split('@')[0]:'Perfil');
+$('pname').textContent=defaultName;
+function mask(value){if(!value)return 'No hay sesión';const [u,d]=value.split('@');return (u.length>2?u.slice(0,2):u.slice(0,1))+'•••@'+(d||'correo')}
+$('email').textContent=mask(email);
+const mb=$('mb'),al=$('al'),mc=$('mc'),action=$('action');
+let mode='',code='',expires=0,attempts=0,busy=false,verified=false;
+function alertMessage(message,kind='err'){al.className='alert '+kind+' show';al.textContent=message}
+function resetModal(){al.className='alert';al.textContent='';mc.replaceChildren();action.disabled=false;action.textContent='Enviar código';busy=false;code='';expires=0;attempts=0;verified=false}
+function closeModal(){mb.classList.remove('show');code='';expires=0}
+function open(modeName){
+ mode=modeName;resetModal();mb.classList.add('show');
+ if(mode==='name'){
+  $('mi').textContent='✎';$('mt').textContent='Modificar nombre';$('mx').textContent='Personaliza el nombre de tu perfil.';
+  const field=document.createElement('input');field.className='input';field.id='newname';field.maxLength=24;field.value=$('pname').textContent;mc.append(field);action.textContent='Guardar';return;
+ }
+ $('mi').textContent=mode==='password'?'🔐':'✉';
+ $('mt').textContent=mode==='password'?'Mostrar contraseña':'Verificar correo';
+ $('mx').textContent='Enviaremos un código de 6 dígitos a '+mask(email)+'.';
+}
+$('edit').onclick=()=>open('name');
+$('show').onclick=()=>{
+ if($('show').textContent==='Ocultar'){$('pass').textContent='••••••••••';$('show').textContent='Mostrar';return}
+ open('password');
+};
+$('verify').onclick=()=>open('email');
+$('cancel').onclick=closeModal;
+$('logout').onclick=()=>{localStorage.removeItem('sessionActive');location.href='login.html'};
+async function sendCode(){
+ if(!email){alertMessage('Inicia sesión para recibir el código.');return}
+ if(mode==='password' && localStorage.getItem(email)===null){alertMessage('La contraseña no está guardada en este navegador.');return}
+ if(!window.emailjs){alertMessage('EmailJS no se ha cargado. Comprueba tu conexión.');return}
+ busy=true;action.disabled=true;action.textContent='Enviando...';
+ try{
+  const bytes=new Uint32Array(1);crypto.getRandomValues(bytes);
+  const generated=String(100000+(bytes[0]%900000));
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+  await emailjs.send(EMAILJS_SERVICE,EMAILJS_TEMPLATE,{to_email:email,codigo_verificacion:generated});
+  code=generated;expires=Date.now()+5*60*1000;attempts=0;
+  const field=document.createElement('input');field.className='input code';field.id='code';field.maxLength=6;field.inputMode='numeric';field.autocomplete='one-time-code';field.placeholder='000000';
+  field.addEventListener('input',()=>field.value=field.value.replace(/\D/g,''));
+  mc.replaceChildren(field);$('mx').textContent='Introduce el código enviado a '+mask(email)+'. Caduca en 5 minutos.';
+  action.textContent='Verificar código';alertMessage('Código enviado. Revisa tu correo.','ok');field.focus();
+ }catch(err){console.error('EmailJS:',err);alertMessage('No se pudo enviar el código. Comprueba la configuración de EmailJS.');action.textContent='Enviar código'}
+ finally{busy=false;action.disabled=false}
+}
+action.onclick=async()=>{
+ if(busy)return;
+ if(mode==='name'){
+  const value=$('newname').value.trim();if(!value){alertMessage('Escribe un nombre.');return}
+  localStorage.setItem(profileKey,value);$('pname').textContent=value;closeModal();return;
+ }
+ if(verified){closeModal();return}
+ if(!code){await sendCode();return}
+ const entered=$('code')?.value.trim()||'';
+ if(Date.now()>expires){code='';mc.replaceChildren();action.textContent='Enviar otro código';alertMessage('El código ha caducado. Solicita uno nuevo.');return}
+ attempts++;
+ if(entered!==code){
+  if(attempts>=5){code='';mc.replaceChildren();action.textContent='Enviar otro código';alertMessage('Demasiados intentos. Solicita otro código.')}
+  else alertMessage('Código incorrecto. Intentos restantes: '+(5-attempts));
+  return;
+ }
+ code='';verified=true;mc.replaceChildren();
+ if(mode==='password'){
+  $('pass').textContent=localStorage.getItem(email)||'No disponible';$('show').textContent='Ocultar';
+  alertMessage('Código correcto. Contraseña visible en la pantalla de configuración.','ok');
+ }else{alertMessage('Correo verificado correctamente.','ok')}
+ $('mx').textContent='Verificación completada.';action.textContent='Cerrar';
+};
+</script></body></html>
