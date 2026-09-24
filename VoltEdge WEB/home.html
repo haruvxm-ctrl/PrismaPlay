@@ -147,6 +147,10 @@
             opacity: .35;
         }
 
+        @media (min-width: 651px) {
+            .sidebar.hidden { pointer-events: none; }
+        }
+
         /* =========================================================
            LOGO
         ========================================================= */
@@ -455,8 +459,20 @@
                 margin-left .35s cubic-bezier(.2,.8,.2,1);
         }
 
-        .sidebar.hidden + .edge-trigger + .main {
+        .sidebar.hidden ~ .main {
             margin-left: 0;
+        }
+
+        /* Ajuste definitivo: el contenido principal ocupa el ancho libre
+           cuando el menú se oculta, sin alterar el menú móvil. */
+        @media (min-width: 651px) {
+            body.menu-cerrado .main {
+                margin-left: 0 !important;
+                width: 100%;
+            }
+            body.menu-cerrado .main .topbar {
+                left: 0 !important;
+            }
         }
 
         /* =========================================================
@@ -485,7 +501,7 @@
             transition: left .35s ease;
         }
 
-        .sidebar.hidden + .edge-trigger + .main .topbar {
+        .sidebar.hidden ~ .main .topbar {
             left: 0;
         }
 
@@ -1711,6 +1727,7 @@
             sidebar.classList.remove(
                 "hidden"
             );
+            document.body.classList.remove("menu-cerrado");
 
         }
 
@@ -1724,9 +1741,12 @@
             sidebar.classList.add(
                 "hidden"
             );
+            document.body.classList.add("menu-cerrado");
 
         }
 
+
+        document.body.classList.toggle("menu-cerrado", sidebar.classList.contains("hidden"));
 
         /* =========================================================
            BOTÓN INICIO
@@ -1755,6 +1775,14 @@
         document.querySelector(".sidebar .brand").addEventListener("click", function(event) {
             event.preventDefault();
             showSidebar();
+        });
+
+        /* En PC, al salir con el mouse del menú se oculta y Home ocupa todo el ancho. */
+        sidebar.addEventListener("mouseleave", function(event) {
+            if (window.matchMedia("(min-width: 651px) and (hover: hover) and (pointer: fine)").matches &&
+                event.clientX > 22) {
+                hideSidebar();
+            }
         });
 
         /* =========================================================
