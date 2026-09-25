@@ -16,7 +16,7 @@ const HOST = '0.0.0.0';
 ========================================================= */
 
 const VIDEO_SERVER =
-    'https://releases-handmade-more-bracelet.trycloudflare.com';
+    'https://vampire-memo-prostate-utilities.trycloudflare.com';
 
 
 const DATA_DIR = path.join(__dirname, 'data');
