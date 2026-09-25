@@ -8,6 +8,17 @@ const app = express();
 const PORT = 3000;
 const HOST = '0.0.0.0';
 
+/* =========================================================
+   SERVIDOR DE VIDEOS / CLOUDFLARE
+
+   CUANDO CLOUDFLARE CAMBIE:
+   CAMBIA SOLAMENTE ESTA URL
+========================================================= */
+
+const VIDEO_SERVER =
+    'https://releases-handmade-more-bracelet.trycloudflare.com';
+
+
 const DATA_DIR = path.join(__dirname, 'data');
 const DATABASE_FILE = path.join(DATA_DIR, 'database.json');
 
@@ -15,42 +26,70 @@ app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 app.use(express.static(__dirname));
 
+
 /* =========================================================
    PRISMA PLAY
    PÁGINA PRINCIPAL
 ========================================================= */
 
 app.get('/', (req, res) => {
+
     res.sendFile(
-        path.join(__dirname, 'home.html')
+        path.join(
+            __dirname,
+            'home.html'
+        )
     );
+
 });
+
 
 /* =========================================================
    BASE DE DATOS
 ========================================================= */
 
 const DEFAULT_DATABASE = {
+
     movies: {
+
         moana: {
+
             likes: 25,
+
             dislikes: 4,
+
             voters: {}
+
         },
 
         minions: {
+
             likes: 81,
+
             dislikes: 7,
+
             voters: {}
+
         },
 
         monsters: {
+
             likes: 42,
+
             dislikes: 3,
+
             voters: {}
+
         }
+
     }
+
 };
+
+
+/* =========================================================
+   ASEGURAR BASE DE DATOS
+========================================================= */
 
 function ensureDatabase() {
 
@@ -62,6 +101,7 @@ function ensureDatabase() {
                 recursive: true
             }
         );
+
     }
 
     if (!fs.existsSync(DATABASE_FILE)) {
@@ -71,6 +111,7 @@ function ensureDatabase() {
         );
 
         return;
+
     }
 
     try {
@@ -86,6 +127,7 @@ function ensureDatabase() {
             saveDatabase(
                 DEFAULT_DATABASE
             );
+
         }
 
     } catch (error) {
@@ -97,18 +139,82 @@ function ensureDatabase() {
         saveDatabase(
             DEFAULT_DATABASE
         );
+
     }
+
 }
+
+
+/* =========================================================
+   LEER BASE DE DATOS
+========================================================= */
 
 function readDatabase() {
 
-    return JSON.parse(
+    const content =
         fs.readFileSync(
             DATABASE_FILE,
             'utf8'
-        )
-    );
+        );
+
+    /*
+        PROTECCIÓN:
+
+        Si database.json está vacío,
+        evita el error:
+
+        Unexpected end of JSON input
+    */
+
+    if (!content.trim()) {
+
+        console.warn(
+            '[DATABASE] database.json estaba vacío. Recreando...'
+        );
+
+        saveDatabase(
+            DEFAULT_DATABASE
+        );
+
+        return JSON.parse(
+            JSON.stringify(
+                DEFAULT_DATABASE
+            )
+        );
+
+    }
+
+    try {
+
+        return JSON.parse(
+            content
+        );
+
+    } catch (error) {
+
+        console.error(
+            '[DATABASE] JSON corrupto. Recreando...',
+            error
+        );
+
+        saveDatabase(
+            DEFAULT_DATABASE
+        );
+
+        return JSON.parse(
+            JSON.stringify(
+                DEFAULT_DATABASE
+            )
+        );
+
+    }
+
 }
+
+
+/* =========================================================
+   GUARDAR BASE DE DATOS
+========================================================= */
 
 function saveDatabase(database) {
 
@@ -120,6 +226,7 @@ function saveDatabase(database) {
                 recursive: true
             }
         );
+
     }
 
     fs.writeFileSync(
@@ -131,7 +238,9 @@ function saveDatabase(database) {
         ),
         'utf8'
     );
+
 }
+
 
 /* =========================================================
    NORMALIZACIÓN
@@ -146,7 +255,9 @@ function normalizeMovieId(value) {
             /[^a-z0-9_-]/g,
             ''
         );
+
 }
+
 
 function normalizeUserId(value) {
 
@@ -156,7 +267,9 @@ function normalizeUserId(value) {
             0,
             200
         );
+
 }
+
 
 /* =========================================================
    OBTENER PELÍCULA
@@ -166,6 +279,14 @@ function getMovie(
     database,
     movieId
 ) {
+
+    if (
+        !database.movies
+    ) {
+
+        database.movies = {};
+
+    }
 
     if (
         !database.movies[movieId]
@@ -178,7 +299,9 @@ function getMovie(
             dislikes: 0,
 
             voters: {}
+
         };
+
     }
 
     const movie =
@@ -190,6 +313,7 @@ function getMovie(
     ) {
 
         movie.likes = 0;
+
     }
 
     if (
@@ -198,6 +322,7 @@ function getMovie(
     ) {
 
         movie.dislikes = 0;
+
     }
 
     if (
@@ -207,10 +332,13 @@ function getMovie(
     ) {
 
         movie.voters = {};
+
     }
 
     return movie;
+
 }
+
 
 /* =========================================================
    ESTADO DEL SERVIDOR
@@ -230,9 +358,36 @@ app.get(
 
             time:
                 new Date().toISOString()
+
         });
+
     }
 );
+
+
+/* =========================================================
+   SERVIDOR DE VIDEOS
+
+   TODAS LAS PÁGINAS DE PELÍCULAS PUEDEN CONSULTAR:
+
+   /api/video-server
+========================================================= */
+
+app.get(
+    '/api/video-server',
+    (req, res) => {
+
+        res.json({
+
+            success: true,
+
+            url: VIDEO_SERVER
+
+        });
+
+    }
+);
+
 
 /* =========================================================
    OBTENER VOTOS
@@ -262,7 +417,9 @@ app.get(
 
                     message:
                         'ID de película inválido.'
+
                 });
+
             }
 
             const database =
@@ -295,6 +452,7 @@ app.get(
                     movie.dislikes,
 
                 userVote
+
             });
 
         } catch (error) {
@@ -310,10 +468,14 @@ app.get(
 
                 message:
                     'Error interno obteniendo los votos.'
+
             });
+
         }
+
     }
 );
+
 
 /* =========================================================
    REGISTRAR VOTO
@@ -334,8 +496,8 @@ app.post(
                 String(
                     req.body?.vote || ''
                 )
-                .trim()
-                .toLowerCase();
+                    .trim()
+                    .toLowerCase();
 
             const userId =
                 normalizeUserId(
@@ -350,7 +512,9 @@ app.post(
 
                     message:
                         'ID de película inválido.'
+
                 });
+
             }
 
             if (
@@ -364,7 +528,9 @@ app.post(
 
                     message:
                         'El voto debe ser like o dislike.'
+
                 });
+
             }
 
             if (!userId) {
@@ -375,7 +541,9 @@ app.post(
 
                     message:
                         'Falta el identificador del dispositivo.'
+
                 });
+
             }
 
             const database =
@@ -390,6 +558,7 @@ app.post(
             const previousVote =
                 movie.voters[userId] ||
                 null;
+
 
             /* =================================================
                MISMO VOTO
@@ -413,8 +582,11 @@ app.post(
 
                     userVote:
                         previousVote
+
                 });
+
             }
+
 
             /* =================================================
                QUITAR VOTO ANTERIOR
@@ -439,7 +611,9 @@ app.post(
                         0,
                         movie.dislikes - 1
                     );
+
             }
+
 
             /* =================================================
                AGREGAR NUEVO VOTO
@@ -454,6 +628,7 @@ app.post(
             } else {
 
                 movie.dislikes += 1;
+
             }
 
             movie.voters[userId] =
@@ -483,6 +658,7 @@ app.post(
 
                 userVote:
                     vote
+
             });
 
         } catch (error) {
@@ -498,10 +674,14 @@ app.post(
 
                 message:
                     'Error interno registrando el voto.'
+
             });
+
         }
+
     }
 );
+
 
 /* =========================================================
    ESTADÍSTICAS
@@ -543,7 +723,9 @@ app.get(
                         Object.keys(
                             movie.voters
                         ).length
+
                 };
+
             }
 
             res.json({
@@ -551,6 +733,7 @@ app.get(
                 success: true,
 
                 stats
+
             });
 
         } catch (error) {
@@ -566,10 +749,14 @@ app.get(
 
                 message:
                     'Error obteniendo estadísticas.'
+
             });
+
         }
+
     }
 );
+
 
 /* =========================================================
    CHAT / OLLAMA
@@ -594,19 +781,23 @@ app.post(
 
                     message:
                         'Falta el prompt.'
+
                 });
+
             }
 
             const response =
                 await fetch(
                     'http://127.0.0.1:11434/api/generate',
                     {
+
                         method: 'POST',
 
                         headers: {
 
                             'Content-Type':
                                 'application/json'
+
                         },
 
                         body:
@@ -618,7 +809,9 @@ app.post(
                                 prompt,
 
                                 stream: false
+
                             })
+
                     }
                 );
 
@@ -627,6 +820,7 @@ app.post(
                 throw new Error(
                     `Ollama respondió ${response.status}`
                 );
+
             }
 
             const data =
@@ -638,6 +832,7 @@ app.post(
 
                 response:
                     data.response || ''
+
             });
 
         } catch (error) {
@@ -656,10 +851,14 @@ app.post(
 
                 error:
                     error.message
+
             });
+
         }
+
     }
 );
+
 
 /* =========================================================
    404
@@ -677,9 +876,12 @@ app.use(
 
             path:
                 req.originalUrl
+
         });
+
     }
 );
+
 
 /* =========================================================
    MANEJO DE ERRORES
@@ -704,15 +906,19 @@ app.use(
 
             message:
                 'Error interno del servidor.'
+
         });
+
     }
 );
+
 
 /* =========================================================
    INICIAR BASE DE DATOS
 ========================================================= */
 
 ensureDatabase();
+
 
 /* =========================================================
    INICIAR SERVIDOR
@@ -762,9 +968,18 @@ app.listen(
         );
 
         console.log(
+            `Servidor de videos: ${VIDEO_SERVER}`
+        );
+
+        console.log(
+            'API servidor de videos: /api/video-server'
+        );
+
+        console.log(
             '========================================'
         );
 
         console.log('');
+
     }
 );
