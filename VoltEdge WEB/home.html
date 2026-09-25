@@ -812,9 +812,9 @@
             overflow-y: hidden;
 
             padding:
-                3px
-                4px
-                16px;
+            12px
+            4px
+            16px;
 
             scroll-behavior: smooth;
 
@@ -832,9 +832,9 @@
         .movie {
             flex:
                 0 0
-                190px;
+                208px;
 
-            height: 280px;
+            height: 305px;
 
             position: relative;
 
@@ -1150,6 +1150,45 @@
             .mobile-brand-toggle .brand-icon::before { left: 9px; }
             .mobile-brand-toggle .brand-icon::after { left: 19px; }
             .mobile-brand-toggle .brand-text { font-size: 16px; }
+        }
+
+
+
+        /* =========================================================
+           HERO DINÁMICO AL PASAR EL MOUSE SOBRE UNA PELÍCULA
+           Se agrega sin modificar las mecánicas existentes.
+        ========================================================= */
+
+        .hero {
+            transition: background-image .35s ease;
+        }
+
+        .hero-content {
+            transition: opacity .18s ease, transform .25s ease;
+        }
+
+        .hero-content.hero-switching {
+            opacity: .18;
+            transform: translateY(4px);
+        }
+
+        .hero-hover-title {
+            display: none;
+            max-width: 620px;
+            margin-bottom: 20px;
+            color: white;
+            font-size: clamp(42px, 5.5vw, 78px);
+            line-height: .95;
+            font-weight: 900;
+            letter-spacing: -3px;
+            text-shadow: 0 10px 35px rgba(0,0,0,.75);
+        }
+
+        @media (max-width: 650px) {
+            .hero-hover-title {
+                font-size: clamp(34px, 11vw, 58px);
+                letter-spacing: -2px;
+            }
         }
 
     </style>
@@ -1675,6 +1714,464 @@
 
                     </div>
 
+
+                    <!-- =================================================
+                         REHÉN CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="rehenMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://es.web.img2.acsta.net/c_310_420/img/ae/f5/aef5937b191674093595800c85859498.jpg');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                MINISERIE
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                Rehén
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2025
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         VERTIGO CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="vertigoMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://m.media-amazon.com/images/M/MV5BMmQxZDQ1Y2UtMzliOS00ZTk4LTk4ODQtOTkwZTNiNDAwOWNlXkEyXkFqcGc@._V1_.jpg');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                PELÍCULA
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                Vértigo
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2022
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         ToyStoryfive CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="tsfMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://lumiere-a.akamaihd.net/v1/images/image_583a8b08.jpeg');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                PELÍCULA
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                Toy Story 5
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2026
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         Papaacargo CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="ppacMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://media.themoviedb.org/t/p/w500/qox5OvknYs1XJqw3aS3d9CvSEKO.jpg');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                MINISERIE
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                Papá a Cargo
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2026
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         countdown CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="ctcMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://play-lh.googleusercontent.com/WjrLifbactwY8XDiC6AQJ08cDHJ7ydQF5jTBEScJj9XQijb2ZXGamQMStbmZ19bS83xUeADwWeZvNrAZLfll');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                MINISERIE
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                Countdown: La hora de tu muerte
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2019
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         lYLO Y STITCH CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="lystMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://es.web.img3.acsta.net/c_310_420/img/c1/e0/c1e0cfb998bc62b2ce572e015f1ff17c.jpg');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                PELÍCULA
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                Lilo y Stitch
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2025
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         VIVO 2020 CARD
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="vivoMovieCard">
+
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://images.justwatch.com/poster/224944885/s718/vivo.jpg');
+                            ">
+                        </div>
+
+
+                        <div class="movie-overlay">
+
+
+                            <div class="movie-type">
+
+                                PELÍCULA
+
+                            </div>
+
+
+                            <div class="movie-title">
+
+                                #VIVO
+
+                            </div>
+
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    2020
+                                </span>
+
+
+                                <span class="play-small">
+
+                                    ▶
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                 TRAILERS
+                 Categoría nueva de prueba.
+            ====================================================== -->
+
+            <section class="section">
+
+                <div class="section-header">
+
+                    <h2 class="section-title">
+                        Trailers
+                    </h2>
+
+                    <button class="section-link">
+                        Explorar
+                    </button>
+
+                </div>
+
+                <div class="row">
+
+                    <!-- =================================================
+                         PRISMA HORIZONTE - PELÍCULA DE PRUEBA
+                    ================================================== -->
+
+                    <div
+                        class="movie"
+                        id="trailerTestMovieCard">
+
+                        <div
+                            class="movie-image"
+                            style="
+                                background-image:
+                                url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=85');
+                            ">
+                        </div>
+
+                        <div class="movie-overlay">
+
+                            <div class="movie-type">
+                                TRAILER
+                            </div>
+
+                            <div class="movie-title">
+                                Prisma Horizonte
+                            </div>
+
+                            <div class="movie-meta">
+
+                                <span>
+                                    PRÓXIMAMENTE
+                                </span>
+
+                                <span class="play-small">
+                                    ▶
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
             </section>
@@ -1682,7 +2179,6 @@
         </div>
 
     </main>
-
 
     <!-- =========================================================
          JAVASCRIPT
@@ -1718,6 +2214,46 @@
             );
 
 
+        const rehenMovieCard =
+            document.getElementById(
+                "rehenMovieCard"
+            );
+
+
+        const vertigoMovieCard =
+        document.getElementById(
+              "vertigoMovieCard"
+          );
+
+
+        const tsfMovieCard =
+         document.getElementById(
+              "tsfMovieCard"
+         );
+
+
+        const ppacMovieCard =
+         document.getElementById(
+              "ppacMovieCard"
+         );
+
+         
+        const ctcMovieCard =
+         document.getElementById(
+              "ctcMovieCard"
+         );
+        
+        
+        const lystMovieCard =
+         document.getElementById(
+              "lystMovieCard"
+         );
+
+
+        const vivoMovieCard =
+         document.getElementById(
+              "vivoMovieCard"
+         );
         /* =========================================================
            MOSTRAR SIDEBAR
         ========================================================== */
@@ -1809,6 +2345,180 @@
             }
         );
 
+
+        /* =========================================================
+           TARJETA REHÉN
+        ========================================================== */
+
+        rehenMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        rehenMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "rehen.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           TARJETA VERTIGO
+        ========================================================== */
+
+        vertigoMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        vertigoMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "vertigo.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           TARJETA TSF
+        ========================================================== */
+
+        tsfMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        tsfMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "tsf.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           TARJETA PAPAACARGO
+        ========================================================== */
+
+        ppacMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        ppacMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "ppac.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           TARJETA countdownlahoradetumuerte
+        ========================================================== */
+
+        ctcMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        ctcMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "ctc.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           TARJETA lylo y stitch
+        ========================================================== */
+
+        lystMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        lystMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "lyst.html";
+
+            }
+        );
+
+
+        /* =========================================================
+           TARJETA VIVO
+        ========================================================== */
+
+        vivoMovieCard.addEventListener(
+            "mouseenter",
+            function() {
+
+                hideSidebar();
+
+            }
+        );
+
+
+        vivoMovieCard.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "vivo.html";
+
+            }
+        );
 
         /* =========================================================
            BORDE IZQUIERDO
@@ -1917,46 +2627,53 @@
 
 
         searchInput.addEventListener(
-            "input",
-            function() {
+    "input",
+    function() {
 
-                const query =
-                    this.value
-                        .toLowerCase()
-                        .trim();
+        function normalizeText(text) {
+            return text
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+        }
 
+        const query =
+            normalizeText(this.value);
 
-                const movie =
-                    document.getElementById(
-                        "moanaMovieCard"
-                    );
+        const movies =
+            document.querySelectorAll(
+                ".movie"
+            );
 
+        movies.forEach(function(movie) {
 
-                const title =
+            const title =
+                normalizeText(
                     movie
                         .querySelector(
                             ".movie-title"
                         )
                         .textContent
-                        .toLowerCase();
+                );
 
+            if (
+                !query ||
+                title.includes(query)
+            ) {
 
-                if (
-                    !query ||
-                    title.includes(query)
-                ) {
+                movie.style.display = "";
 
-                    movie.style.display =
-                        "";
+            } else {
 
-                } else {
-
-                    movie.style.display =
-                        "none";
-
-                }
+                movie.style.display = "none";
 
             }
+
+        });
+
+    }
+
         );
 
 
@@ -2054,6 +2771,186 @@
 
                 }
             );
+
+
+
+        /* =========================================================
+           HERO DINÁMICO POR HOVER
+           Al salir de cualquier tarjeta, todo vuelve a Moana.
+           No reemplaza listeners, búsqueda, sidebar ni navegación.
+        ========================================================= */
+
+        const prismaHero = document.querySelector(".hero");
+        const prismaHeroContent = document.querySelector(".hero-content");
+        const prismaHeroLabel = document.querySelector(".hero-label");
+        const prismaHeroTitleWrap = document.querySelector(".hero-title-image-wrap");
+        const prismaHeroTitleImage = document.querySelector(".hero-title-image");
+        const prismaHeroMeta = document.querySelector(".hero-meta");
+        const prismaHeroDescription = document.querySelector(".hero-description");
+
+        const prismaHeroHoverTitle = document.createElement("div");
+        prismaHeroHoverTitle.className = "hero-hover-title";
+        prismaHeroTitleWrap.insertAdjacentElement("afterend", prismaHeroHoverTitle);
+
+        const PRISMA_HERO_GRADIENTS = `
+            linear-gradient(
+                90deg,
+                rgba(5,5,8,.98) 0%,
+                rgba(5,5,8,.80) 27%,
+                rgba(5,5,8,.30) 62%,
+                rgba(5,5,8,.76) 100%
+            ),
+            linear-gradient(
+                0deg,
+                #050507 0%,
+                transparent 45%
+            )
+        `;
+
+        const prismaDefaultHero = {
+            image: "https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/5d472805-e54e-4e23-938f-be92ca654773/compose?format=webp&width=2560",
+            label: "NUEVO ESTRENO",
+            title: "Moana: Un mar de aventuras",
+            titleImage: "https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/14ab5844-af39-4278-93b5-42b97334c83d/trim?format=webp&width=1920",
+            meta: ["2026", "PG", "Animación", "Aventura"],
+            description: "Moana se embarca en una nueva aventura a través del océano. Una historia llena de aventura, misterio, nuevos desafíos y un viaje que la llevará más allá de las aguas conocidas.",
+            useOriginalLogo: true
+        };
+
+        const prismaHeroMovies = {
+            moanaMovieCard: prismaDefaultHero,
+
+            rehenMovieCard: {
+                image: "https://occ-0-2219-2218.1.nflxso.net/dnm/api/v6/MgXQGyNr1xbI8tJSYiMWv5kXg5g/AAAABVxXOFzYOYFiSIhcSJjDEYFu2pws-DED58vnmQG915B1GknASLRNUXnMo9OTVbXGlTCHFKwznlvCyiO_TEVeb7aMYkH4JVzr3khZuB1awsvXjKiuYiHvZUYNuA.jpg?r=7de",
+                label: "MINISERIE",
+                title: "Rehén",
+                titleImage: "https://occ-0-2794-2218.1.nflxso.net/dnm/api/v6/S4oi7EPZbv2UEPaukW54OORa0S8/AAAABS_nCuiv2zGWqOnu5SnBIX4qDOaPq0cppNP0t55vxm9Xo49nRZ6suTiWQPvcqcHGNQVttb6sm-vgdWd4kmZW4oE0Bo4ruu9r9Q.png?r=081", // PEGA AQUÍ la imagen PNG/WebP del título de Rehén
+                meta: ["2025", "Suspenso", "Drama"],
+                description: "Una situación extrema convierte cada decisión en una carrera contra el tiempo, donde sobrevivir exige mantener la calma cuando todo está en juego."
+            },
+
+            vertigoMovieCard: {
+                image: "https://m.media-amazon.com/images/S/pv-target-images/32519081f300bdb101c90b517e497650a548982d0acb4d76ce364a4acee73aae.png",
+                label: "PELÍCULA",
+                title: "Vértigo",
+                titleImage: "https://projects.chrisstcyr.com/movie/posani/images/title.png", // PEGA AQUÍ la imagen PNG/WebP del título de Vértigo
+                meta: ["2022", "PG-13", "Aventura", "Suspenso"],
+                description: "Becky y Hunter quedan atrapadas a más de 600 metros de altura. Sin una salida sencilla, cada movimiento puede ser la diferencia entre escapar o caer."
+            },
+
+            tsfMovieCard: {
+                image: "https://b.zmtcdn.com/data/edition_assets/17801165284699178.jpg",
+                label: "PELÍCULA",
+                title: "Toy Story 5",
+                titleImage: "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Toy_Story_5_logo.svg/1280px-Toy_Story_5_logo.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail", // PEGA AQUÍ la imagen PNG/WebP del título de Toy Story 5
+                meta: ["2026", "PG", "Animación", "Aventura"],
+                description: "Woody, Buzz y sus amigos se enfrentan a una nueva aventura cuando los juguetes descubren que la tecnología también quiere un lugar en el mundo de Bonnie."
+            },
+
+            ppacMovieCard: {
+                image: "https://m.media-amazon.com/images/S/pv-target-images/99f14ecbfe4be91f73ee8380b00ec5e383f1f4be74447b97252b82aef36b7077.jpg",
+                label: "MINISERIE",
+                title: "Papá a Cargo",
+                titleImage: "https://the-breadwinner-tix.ca/images/tt.png", // PEGA AQUÍ la imagen PNG/WebP del título de Papá a Cargo
+                meta: ["2026", "Comedia", "Familia"],
+                description: "Entre responsabilidades, caos familiar y situaciones inesperadas, ser papá a cargo resulta ser una aventura mucho más grande de lo planeado."
+            },
+
+            ctcMovieCard: {
+                image: "https://m.media-amazon.com/images/S/pv-target-images/25a61ff88d6361d37614be1e709f292e64bd64420511fd7d44b2dd74faea866c.png",
+                label: "PELÍCULA",
+                title: "Countdown: La hora de tu muerte",
+                titleImage: "https://dx35vtwkllhj9.cloudfront.net/stx/countdown/images/regions/gb/tt2.png", // PEGA AQUÍ la imagen PNG/WebP del título de Countdown: La hora de tu muerte
+                meta: ["2019", "Terror", "Suspenso"],
+                description: "Una aplicación asegura poder predecir el momento exacto de tu muerte. Cuando la cuenta regresiva comienza, escapar del destino deja de parecer imposible."
+            },
+
+            lystMovieCard: {
+                image: "https://blog.erikstore.com/wp-content/uploads/2025/03/LILO-Y-STITCH-LIVE-ACTION.jpg",
+                label: "PELÍCULA",
+                title: "Lilo y Stitch",
+                titleImage: "https://image.tmdb.org/t/p/original/bF3bM45YFikizcsPIoe3bkcS7ua.png", // PEGA AQUÍ la imagen PNG/WebP del título de Lilo y Stitch
+                meta: ["2025", "PG", "Aventura", "Familia"],
+                description: "Lilo encuentra en Stitch a un amigo tan impredecible como especial. Juntos descubren que una familia puede formarse incluso en los lugares más inesperados."
+            },
+
+            vivoMovieCard: {
+                image: "https://occ-0-2794-2218.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABdvDS_uP1Vcx0rhiumhGA81xGhHEisv7nY_8PpgYIhNeQf_y0tsa-uFABQ-8Iv1W400Za3OvkKvvuUCHsLNrLPvgdRoS_rpLUjBP.jpg?r=5c6",
+                label: "PELÍCULA",
+                title: "#VIVO",
+                titleImage: "https://occ-0-2794-2218.1.nflxso.net/dnm/api/v6/S4oi7EPZbv2UEPaukW54OORa0S8/AAAABSeLg5KA6aT6BKV6eWSGW-ihmzSdIMpsN2_5ijP6QFKOX2mtAxPxpObyZHfZgMTXf8eby-qgICSko2NzS2vC-0rziTyHgQ5qbg.png?r=bb3", // PEGA AQUÍ la imagen PNG/WebP del título de #VIVO
+                meta: ["2020", "Terror", "Supervivencia"],
+                description: "Aislado en su apartamento durante un brote devastador, un joven intenta sobrevivir mientras busca una forma de conectar con alguien más allá de sus paredes."
+            },
+
+            trailerTestMovieCard: {
+                image: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1920&q=90", // IMAGEN GRANDE DEL HERO
+                label: "TRAILER",
+                title: "Prisma Horizonte",
+                titleImage: "", // PEGA AQUÍ la imagen PNG/WebP del título
+                meta: ["PRÓXIMAMENTE", "Prisma Original", "Aventura"],
+                description: "Película ficticia de prueba para la nueva categoría Trailers. Puedes reemplazar esta imagen, título y descripción cuando quieras."
+            }
+        };
+
+        let prismaHeroSwitchTimer = null;
+
+        function prismaBuildHeroMeta(items) {
+            prismaHeroMeta.innerHTML = items
+                .map(function(item, index) {
+                    const separator = index < items.length - 1
+                        ? "<span>•</span>"
+                        : "";
+
+                    return "<strong>" + item + "</strong>" + separator;
+                })
+                .join("");
+        }
+
+        function prismaApplyHero(data) {
+            clearTimeout(prismaHeroSwitchTimer);
+            prismaHeroContent.classList.add("hero-switching");
+
+            prismaHeroSwitchTimer = setTimeout(function() {
+                prismaHero.style.backgroundImage =
+                    PRISMA_HERO_GRADIENTS + ", url(\"" + data.image + "\")";
+
+                prismaHeroLabel.textContent = data.label;
+                prismaBuildHeroMeta(data.meta);
+                prismaHeroDescription.textContent = data.description;
+
+                /* Imagen de título exclusiva del HERO.
+                   Si titleImage está vacío, conserva el título de texto como respaldo. */
+                if (data.titleImage) {
+                    prismaHeroTitleImage.src = data.titleImage;
+                    prismaHeroTitleImage.alt = data.title;
+                    prismaHeroTitleWrap.style.display = "block";
+                    prismaHeroHoverTitle.style.display = "none";
+                } else {
+                    prismaHeroTitleWrap.style.display = "none";
+                    prismaHeroHoverTitle.textContent = data.title;
+                    prismaHeroHoverTitle.style.display = "block";
+                }
+
+                prismaHeroContent.classList.remove("hero-switching");
+            }, 110);
+        }
+
+        Object.keys(prismaHeroMovies).forEach(function(cardId) {
+            const card = document.getElementById(cardId);
+
+            if (!card) {
+                return;
+            }
+
+            card.addEventListener("mouseenter", function() {
+                prismaApplyHero(prismaHeroMovies[cardId]);
+            });
+
+            card.addEventListener("mouseleave", function() {
+                prismaApplyHero(prismaDefaultHero);
+            });
+        });
 
     </script>
 
