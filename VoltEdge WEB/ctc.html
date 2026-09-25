@@ -2970,41 +2970,60 @@
         15000
     );
 
-    /* =========================================================
-   PRISMA PLAY - SERVIDOR DE VIDEO
+/* =========================================================
+   PRISMA PLAY - CLOUDFLARE VIDEO SERVER
 ========================================================= */
 
 async function cargarPelicula() {
 
     try {
 
-        const response = await fetch("/api/video-server");
+        const response = await fetch(
+            API_BASE + "/api/video-server",
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "No se pudo obtener el servidor de videos."
+            );
+        }
+
         const data = await response.json();
 
         if (!data.success || !data.url) {
-            throw new Error("Servidor de video no disponible.");
+            throw new Error(
+                "URL del servidor de videos inválida."
+            );
         }
-
-        const video =
-            document.getElementById("movie-video");
 
         const source =
             document.getElementById("movie-source");
 
-        source.src = data.url + "/Rehen.mp4";
+        source.src =
+            data.url.replace(/\/$/, "") +
+            "/Rehen.mp4";
 
         video.load();
 
         console.log(
-            "🎬 Rehén cargado desde:",
+            "[PRISMA PLAY] Rehén:",
             source.src
         );
 
     } catch (error) {
 
         console.error(
-            "❌ Error cargando Rehén:",
+            "[PRISMA PLAY] Error cargando Rehén:",
             error
+        );
+
+        hideVideoLoading();
+
+        showToast(
+            "No se pudo cargar la película."
         );
 
     }
