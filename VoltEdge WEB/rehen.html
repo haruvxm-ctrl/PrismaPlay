@@ -2970,7 +2970,6 @@
         loadVotes,
         15000
     );
-
 /* =========================================================
    PRISMA PLAY - CLOUDFLARE VIDEO SERVER
 ========================================================= */
@@ -3000,21 +2999,24 @@ async function cargarPelicula() {
             );
         }
 
-        source.src =
-    data.url.replace(/\/$/, "") +
-    "/Rehen.mp4";
+        const source =
+            document.getElementById("movie-source");
 
-video.load();
+        source.src =
+            data.url.replace(/\/$/, "") +
+            "/Rehen.mp4";
+
+        video.load();
 
         console.log(
-            "[PRISMA PLAY] Rehén:",
+            "[PRISMA PLAY] Rehen:",
             source.src
         );
 
     } catch (error) {
 
         console.error(
-            "[PRISMA PLAY] Error cargando Rehén:",
+            "[PRISMA PLAY] Error cargando Rehen:",
             error
         );
 
