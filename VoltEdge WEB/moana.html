@@ -1572,9 +1572,9 @@
             >
 
                 <source
-                    src="./moana.mp4"
-                    type="video/mp4"
-                >
+                id="movie-source"
+                type="video/mp4"
+>
 
                 Tu navegador no soporta reproducción de vídeo.
 
@@ -2970,6 +2970,68 @@
         loadVotes,
         15000
     );
+
+/* =========================================================
+   PRISMA PLAY - CLOUDFLARE VIDEO SERVER
+========================================================= */
+
+async function cargarPelicula() {
+
+    try {
+
+        const response = await fetch(
+            API_BASE + "/api/video-server",
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "No se pudo obtener el servidor de videos."
+            );
+        }
+
+        const data = await response.json();
+
+        if (!data.success || !data.url) {
+            throw new Error(
+                "URL del servidor de videos inválida."
+            );
+        }
+
+        const source =
+            document.getElementById("movie-source");
+
+        source.src =
+            data.url.replace(/\/$/, "") +
+            "/Rehen.mp4";
+
+        video.load();
+
+        console.log(
+            "[PRISMA PLAY] Rehén:",
+            source.src
+        );
+
+    } catch (error) {
+
+        console.error(
+            "[PRISMA PLAY] Error cargando Rehén:",
+            error
+        );
+
+        hideVideoLoading();
+
+        showToast(
+            "No se pudo cargar la película."
+        );
+
+    }
+
+}
+
+cargarPelicula();
 
 </script>
 
